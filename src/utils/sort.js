@@ -1,5 +1,4 @@
-
-function orderAsc (node0, node1) {
+function orderAsc(node0, node1) {
   if (node0.text < node1.text) {
     return -1
   }
@@ -11,7 +10,7 @@ function orderAsc (node0, node1) {
   return 0
 }
 
-function orderDesc (node0, node1) {
+function orderDesc(node0, node1) {
   if (node0.text < node1.text) {
     return 1
   }
@@ -23,10 +22,12 @@ function orderDesc (node0, node1) {
   return 0
 }
 
-function getCompareFunction (order) {
+function getCompareFunction(order) {
   switch (order.toLowerCase()) {
-    case 'asc': return orderAsc
-    case 'desc': return orderDesc
+    case 'asc':
+      return orderAsc
+    case 'desc':
+      return orderDesc
   }
 }
 

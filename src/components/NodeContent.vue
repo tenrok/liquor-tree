@@ -1,15 +1,17 @@
 <script>
   const NodeContent = {
     name: 'node-content',
+
     props: ['node'],
-    render (h) {
+
+    render(h) {
       const node = this.node
       const vm = this.node.tree.vm
 
       if (node.isEditing) {
         let nodeText = node.text
 
-        this.$nextTick(_ => {
+        this.$nextTick(() => {
           this.$refs.editCtrl.focus()
         })
 
@@ -20,18 +22,18 @@
           },
           class: 'tree-input',
           on: {
-            input (e) {
+            input(e) {
               nodeText = e.target.value
             },
-            blur () {
+            blur() {
               node.stopEditing(nodeText)
             },
-            keyup (e) {
+            keyup(e) {
               if (e.keyCode === 13) {
                 node.stopEditing(nodeText)
               }
             },
-            mouseup (e) {
+            mouseup(e) {
               e.stopPropagation()
             }
           },

@@ -1,43 +1,42 @@
-
-function nodeIterator (context, method, ...args) {
+function nodeIterator(context, method, ...args) {
   context.forEach(node => node[method](...args))
 }
 
 export default class Selection extends Array {
-  constructor (tree, items = []) {
-    /*eslint semi: 0 */
-    super();
+  constructor(tree, items = []) {
+    /* eslint semi: 0 */
+    super()
 
-    this.tree = tree;
+    this.tree = tree
     this.push(...items)
   }
 
-  remove () {
+  remove() {
     nodeIterator(this, 'remove')
     return this
   }
 
-  expand () {
+  expand() {
     nodeIterator(this, 'expand')
     return this
   }
 
-  collapse () {
+  collapse() {
     nodeIterator(this, 'collapse')
     return this
   }
 
-  select (extendList) {
+  select(extendList) {
     nodeIterator(this, 'select', extendList)
     return this
   }
 
-  unselect () {
+  unselect() {
     nodeIterator(this, 'unselect')
     return this
   }
 
-  check () {
+  check() {
     if (this.tree.options.checkbox) {
       nodeIterator(this, 'check')
     }
@@ -45,7 +44,7 @@ export default class Selection extends Array {
     return this
   }
 
-  uncheck () {
+  uncheck() {
     if (this.tree.options.checkbox) {
       nodeIterator(this, 'uncheck')
     }
@@ -53,12 +52,12 @@ export default class Selection extends Array {
     return this
   }
 
-  disable () {
+  disable() {
     nodeIterator(this, 'disable')
     return this
   }
 
-  enable () {
+  enable() {
     nodeIterator(this, 'enable')
     return this
   }

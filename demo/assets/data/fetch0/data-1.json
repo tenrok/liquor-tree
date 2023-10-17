@@ -1,6 +1,14 @@
 [
-  { "text": "OBJECT ORIENTED" },
-  { "text": "ANONYMOUS FUNCTIONS" },
-  { "text": "FUNCTIONS AS FIRST-CLASS OBJECTS" },
-  { "text": "LOOSE TYPING" }
+  {
+    "text": "OBJECT ORIENTED"
+  },
+  {
+    "text": "ANONYMOUS FUNCTIONS"
+  },
+  {
+    "text": "FUNCTIONS AS FIRST-CLASS OBJECTS"
+  },
+  {
+    "text": "LOOSE TYPING"
+  }
 ]

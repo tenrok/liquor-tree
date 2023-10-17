@@ -1,51 +1,31 @@
 <template>
-  <li
-    role="treeitem"
-    class="tree-node"
-    :data-id="node.id"
-    :class="nodeClass"
-    @mousedown.stop="handleMouseDown"
-  >
+  <li role="treeitem" class="tree-node" :data-id="node.id" :class="nodeClass" @mousedown.stop="handleMouseDown">
     <div
       class="tree-content"
-      :style="[options.direction == 'ltr' ? {'padding-left': padding} : {'padding-right': padding}]"
+      :style="[options.direction == 'ltr' ? { 'padding-left': padding } : { 'padding-right': padding }]"
       @click.stop="select"
     >
       <i
         class="tree-arrow"
-        :class="[{'expanded': node.states.expanded, 'has-child': node.children.length || node.isBatch}, options.direction]"
+        :class="[{ expanded: node.states.expanded, 'has-child': node.children.length || node.isBatch }, options.direction]"
         @click.stop="toggleExpand"
       />
 
       <i
         v-if="options.checkbox"
         class="tree-checkbox"
-        :class="{'checked': node.states.checked, 'indeterminate': node.states.indeterminate}"
+        :class="{ checked: node.states.checked, indeterminate: node.states.indeterminate }"
         @click.stop="check"
       />
 
-      <span
-        ref="anchor"
-        class="tree-anchor"
-        tabindex="-1"
-        @focus="onNodeFocus"
-        @dblclick="tree.$emit('node:dblclick', node)"
-      >
+      <span ref="anchor" class="tree-anchor" tabindex="-1" @focus="onNodeFocus" @dblclick="tree.$emit('node:dblclick', node)">
         <node-content :node="node" />
       </span>
     </div>
 
     <transition name="l-fade">
-      <ul
-        v-if="hasChildren() && node.states.expanded"
-        class="tree-children"
-      >
-        <node
-          v-for="child in visibleChildren"
-          :key="child.id"
-          :node="child"
-          :options="options"
-        />
+      <ul v-if="hasChildren() && node.states.expanded" class="tree-children">
+        <node v-for="child in visibleChildren" :key="child.id" :node="child" :options="options" />
       </ul>
     </transition>
   </li>
@@ -56,7 +36,9 @@
 
   const TreeNode = {
     name: 'Node',
+
     inject: ['tree'],
+
     props: ['node', 'options'],
 
     components: {
@@ -87,13 +69,13 @@
         let hasChildren = this.hasChildren()
         let classes = {
           'has-child': hasChildren,
-          'expanded': hasChildren && state.expanded,
-          'selected': state.selected,
-          'disabled': state.disabled,
-          'matched': state.matched,
-          'dragging': state.dragging,
-          'loading': this.loading,
-          'draggable': state.draggable
+          expanded: hasChildren && state.expanded,
+          selected: state.selected,
+          disabled: state.disabled,
+          matched: state.matched,
+          dragging: state.dragging,
+          loading: this.loading,
+          draggable: state.draggable
         }
 
         if (this.options.checkbox) {
@@ -105,7 +87,7 @@
       },
 
       visibleChildren() {
-        return this.node.children.filter(function(child) {
+        return this.node.children.filter(function (child) {
           return child && child.visible()
         })
       }
@@ -129,7 +111,8 @@
         }
       },
 
-      select({ctrlKey} = evnt) {
+      select(evnt) {
+        const { ctrlKey } = evnt
         const opts = this.options
         const tree = this.tree
         const node = this.node
@@ -269,7 +252,7 @@
     height: 9px;
     width: 9px;
     transform: rotate(-45deg) translateY(-50%) translateX(0);
-    transition: transform .25s;
+    transition: transform 0.25s;
     transform-origin: center;
   }
 
@@ -283,7 +266,7 @@
     height: 9px;
     width: 9px;
     transform: rotate(-45deg) translateY(-50%) translateX(0);
-    transition: transform .25s;
+    transition: transform 0.25s;
     transform-origin: center;
   }
 
@@ -300,14 +283,14 @@
     border: 1px solid #dadada;
     border-radius: 2px;
     background: #fff;
-    transition: border-color .25s, background-color .25s;
+    transition: border-color 0.25s, background-color 0.25s;
   }
 
   .tree-checkbox:after,
   .tree-arrow:after {
     position: absolute;
     display: block;
-    content: "";
+    content: '';
   }
 
   .tree-checkbox.checked,
@@ -326,7 +309,7 @@
     height: 15px;
     width: 8px;
     transform: rotate(45deg) scaleY(0);
-    transition: transform .25s;
+    transition: transform 0.25s;
     transform-origin: center;
   }
 
@@ -365,7 +348,7 @@
   .tree-node.disabled > .tree-content > .tree-anchor {
     color: #989191;
     background: #fff;
-    opacity: .6;
+    opacity: 0.6;
     cursor: default;
     outline: none;
   }
@@ -380,16 +363,17 @@
     padding: 0 4px;
   }
 
-  .l-fade-enter-active, .l-fade-leave-active {
-    transition: opacity .3s, transform .3s;
+  .l-fade-enter-active,
+  .l-fade-leave-active {
+    transition: opacity 0.3s, transform 0.3s;
     transform: translateX(0);
   }
 
-  .l-fade-enter, .l-fade-leave-to {
+  .l-fade-enter,
+  .l-fade-leave-to {
     opacity: 0;
     transform: translateX(-2em);
   }
-
 
   .tree--small .tree-anchor {
     line-height: 19px;
@@ -422,9 +406,9 @@
   .tree-node.has-child.loading > .tree-content > .tree-arrow {
     font-size: 3px;
     position: relative;
-    border-top: 1.1em solid rgba(45,45,45, 0.2);
-    border-right: 1.1em solid rgba(45,45,45, 0.2);
-    border-bottom: 1.1em solid rgba(45,45,45, 0.2);
+    border-top: 1.1em solid rgba(45, 45, 45, 0.2);
+    border-right: 1.1em solid rgba(45, 45, 45, 0.2);
+    border-bottom: 1.1em solid rgba(45, 45, 45, 0.2);
     border-left: 1.1em solid #2d2d2d;
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);

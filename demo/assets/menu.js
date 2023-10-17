@@ -1,10 +1,9 @@
-;(_ => {
-
+;(() => {
   document.addEventListener('DOMContentLoaded', initMenu)
 
   const menuItems = [
     { text: 'Basic Usage', href: 'basic-usage.html' },
-    { text: 'Checkboxes', href: 'checkboxes.html' },,
+    { text: 'Checkboxes', href: 'checkboxes.html' },
     { text: 'Events', href: 'events.html' },
     { text: 'Async Data', href: 'async.html' },
     { text: 'Custom Node/Icons', href: 'custom.html' },
@@ -15,7 +14,7 @@
     { text: 'Vuex Integration', href: 'vuex.html' },
     { text: 'Exporting', href: 'exporting.html' },
     { text: 'Drag & Drop', href: 'dnd.html' },
-    { text: 'Updating', href: 'updating.html' },
+    { text: 'Updating', href: 'updating.html' }
   ]
 
   function initMenu() {
@@ -40,25 +39,30 @@
     container.className = 'menu-container'
 
     menuItems.forEach(item => {
-      container.append(
-        createLink(item)
-      )
+      container.append(createLink(item))
     })
 
-    menu.addEventListener('click', _ => {
-      container.classList.add('opened')
-      initClose()
-    }, false)
+    menu.addEventListener(
+      'click',
+      () => {
+        container.classList.add('opened')
+        initClose()
+      },
+      false
+    )
 
     function initClose() {
-      window.addEventListener('mousedown', function close(e) {
-        if (!e.target.closest('.menu-container')) {
-          container.classList.remove('opened')
-          window.removeEventListener('mousedown', close, false)
-        }
-      }, false)
+      window.addEventListener(
+        'mousedown',
+        function close(e) {
+          if (!e.target.closest('.menu-container')) {
+            container.classList.remove('opened')
+            window.removeEventListener('mousedown', close, false)
+          }
+        },
+        false
+      )
     }
-
 
     document.body.appendChild(container)
   }
@@ -71,5 +75,4 @@
 
     return a
   }
-
-})();
+})()

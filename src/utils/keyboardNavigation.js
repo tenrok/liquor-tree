@@ -1,18 +1,17 @@
-
 const keyCodes = {
-  'ARROW_LEFT': 37,
-  'ARROW_TOP': 38,
-  'ARROW_RIGHT': 39,
-  'ARROW_BOTTOM': 40,
-  'SPACE': 32,
-  'DELETE': 46,
-  'ENTER': 13,
-  'ESC': 27
+  ARROW_LEFT: 37,
+  ARROW_TOP: 38,
+  ARROW_RIGHT: 39,
+  ARROW_BOTTOM: 40,
+  SPACE: 32,
+  DELETE: 46,
+  ENTER: 13,
+  ESC: 27
 }
 
 const codesArr = [37, 38, 39, 40, 32]
 
-function focusUp (tree, node) {
+function focusUp(tree, node) {
   const prevNode = tree.prevVisibleNode(node)
 
   if (!prevNode) {
@@ -26,7 +25,7 @@ function focusUp (tree, node) {
   prevNode.focus()
 }
 
-function focusdDown (tree, node) {
+function focusdDown(tree, node) {
   const nextNode = tree.nextVisibleNode(node)
 
   if (!nextNode) {
@@ -40,7 +39,7 @@ function focusdDown (tree, node) {
   nextNode.focus()
 }
 
-function checkNode (tree, node) {
+function checkNode(tree, node) {
   if (!tree.options.checkbox) {
     return
   }
@@ -52,7 +51,7 @@ function checkNode (tree, node) {
   }
 }
 
-function leftArrow (tree, node) {
+function leftArrow(tree, node) {
   if (node.expanded()) {
     node.collapse()
   } else {
@@ -64,7 +63,7 @@ function leftArrow (tree, node) {
   }
 }
 
-function rightArrow (tree, node) {
+function rightArrow(tree, node) {
   if (node.collapsed()) {
     node.expand()
   } else {
@@ -76,7 +75,7 @@ function rightArrow (tree, node) {
   }
 }
 
-function deleteNode (tree, node) {
+function deleteNode(tree, node) {
   const deletion = tree.options.deletion
 
   if (deletion) {
@@ -94,33 +93,44 @@ export default function (tree) {
   const vm = tree.vm
   const $el = vm.$el
 
-  $el.addEventListener('keydown', e => {
-    const code = e.keyCode
-    const node = tree.activeElement
+  $el.addEventListener(
+    'keydown',
+    e => {
+      const code = e.keyCode
+      const node = tree.activeElement
 
-    if (!tree.isNode(node)) {
-      return
-    }
-
-    if (node.isEditing) {
-      switch (code) {
-        case keyCodes.ESC: return node.stopEditing(false)
-      }
-    } else {
-      if (codesArr.includes(code)) {
-        e.preventDefault()
-        e.stopPropagation()
+      if (!tree.isNode(node)) {
+        return
       }
 
-      switch (code) {
-        case keyCodes.ARROW_LEFT: return leftArrow(tree, node)
-        case keyCodes.ARROW_RIGHT: return rightArrow(tree, node)
-        case keyCodes.ARROW_TOP: return focusUp(tree, node)
-        case keyCodes.ARROW_BOTTOM: return focusdDown(tree, node)
-        case keyCodes.SPACE:
-        case keyCodes.ENTER: return checkNode(tree, node)
-        case keyCodes.DELETE: return deleteNode(tree, node)
+      if (node.isEditing) {
+        switch (code) {
+          case keyCodes.ESC:
+            return node.stopEditing(false)
+        }
+      } else {
+        if (codesArr.includes(code)) {
+          e.preventDefault()
+          e.stopPropagation()
+        }
+
+        switch (code) {
+          case keyCodes.ARROW_LEFT:
+            return leftArrow(tree, node)
+          case keyCodes.ARROW_RIGHT:
+            return rightArrow(tree, node)
+          case keyCodes.ARROW_TOP:
+            return focusUp(tree, node)
+          case keyCodes.ARROW_BOTTOM:
+            return focusdDown(tree, node)
+          case keyCodes.SPACE:
+          case keyCodes.ENTER:
+            return checkNode(tree, node)
+          case keyCodes.DELETE:
+            return deleteNode(tree, node)
+        }
       }
-    }
-  }, true)
+    },
+    true
+  )
 }

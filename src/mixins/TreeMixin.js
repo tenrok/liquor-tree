@@ -2,18 +2,18 @@ import Tree from '../lib/Tree'
 import initKeyboardNavigation from '../utils/keyboardNavigation'
 import assert from '../utils/assert'
 
-function initEvents (vm) {
+function initEvents(vm) {
   const { multiple, checkbox } = vm.opts
   const tree = vm.tree
 
-  const emitter = (obj) => {
+  const emitter = () => {
     const selected = vm.selected()
 
     if (!checkbox) {
-      vm.$emit('input', multiple ? selected : (selected[0] || null))
+      vm.$emit('input', multiple ? selected : selected[0] || null)
     } else {
       vm.$emit('input', {
-        selected: multiple ? selected : (selected[0] || null),
+        selected: multiple ? selected : selected[0] || null,
         checked: vm.checked()
       })
     }
@@ -49,7 +49,7 @@ function initEvents (vm) {
 }
 
 export default {
-  mounted () {
+  mounted() {
     const tree = new Tree(this)
     let dataProvider
 
@@ -94,7 +94,7 @@ export default {
   },
 
   methods: {
-    connectStore (store) {
+    connectStore(store) {
       const { store: Store, mutations, getter, dispatcher } = store
 
       assert(typeof getter === 'function', '`getter` must be a function')
@@ -104,7 +104,7 @@ export default {
         assert(Array.isArray(mutations), '`mutations` must be an array')
       }
 
-      Store.subscribe((action, state) => {
+      Store.subscribe(action => {
         if (!mutations) {
           this.tree.setModel(getter())
         } else if (mutations.includes(action.type)) {
@@ -115,25 +115,25 @@ export default {
       this.tree.setModel(getter())
 
       this.$on('LIQUOR_NOISE', () => {
-        this.$nextTick(_ => {
+        this.$nextTick(() => {
           dispatcher(this.toJSON())
         })
       })
     },
 
-    recurseDown (fn) {
+    recurseDown(fn) {
       this.tree.recurseDown(fn)
     },
 
-    selected () {
+    selected() {
       return this.tree.selected()
     },
 
-    checked () {
+    checked() {
       return this.tree.checked()
     },
 
-    append (criteria, node) {
+    append(criteria, node) {
       // append to model
       if (!node) {
         return this.tree.addToModel(criteria, this.tree.model.length)
@@ -142,7 +142,7 @@ export default {
       return this.tree.append(criteria, node)
     },
 
-    prepend (criteria, node) {
+    prepend(criteria, node) {
       if (!node) {
         return this.tree.addToModel(criteria, 0)
       }
@@ -150,15 +150,15 @@ export default {
       return this.tree.prepend(criteria, node)
     },
 
-    addChild (criteria, node) {
+    addChild(criteria, node) {
       return this.append(criteria, node)
     },
 
-    remove (criteria, multiple) {
+    remove(criteria, multiple) {
       return this.tree.remove(criteria, multiple)
     },
 
-    before (criteria, node) {
+    before(criteria, node) {
       if (!node) {
         return this.prepend(criteria)
       }
@@ -166,7 +166,7 @@ export default {
       return this.tree.before(criteria, node)
     },
 
-    after (criteria, node) {
+    after(criteria, node) {
       if (!node) {
         return this.append(criteria)
       }
@@ -174,51 +174,47 @@ export default {
       return this.tree.after(criteria, node)
     },
 
-    find (criteria, multiple) {
+    find(criteria, multiple) {
       return this.tree.find(criteria, multiple)
     },
 
-    findAll (criteria) {
+    findAll(criteria) {
       return this.tree.find(criteria, true)
     },
 
-    expandAll () {
+    expandAll() {
       return this.tree.expandAll()
     },
 
-    updateData (criteria, callback) {
+    updateData(criteria, callback) {
       return this.tree.updateData(criteria, callback)
     },
 
-    collapseAll () {
+    collapseAll() {
       return this.tree.collapseAll()
     },
 
-    sortTree (compareFn, deep) {
+    sortTree(compareFn, deep) {
       return this.tree.sortTree(compareFn, deep)
     },
 
-    sort (...args) {
+    sort(...args) {
       return this.tree.sort(...args)
     },
 
-    setModel (data) {
+    setModel(data) {
       return this.tree.setModel(data)
     },
 
-    getRootNode () {
-      return this.tree.model.length === 1
-        ? this.tree.model[0]
-        : this.tree.model
+    getRootNode() {
+      return this.tree.model.length === 1 ? this.tree.model[0] : this.tree.model
     },
 
-    toJSON () {
-      return JSON.parse(
-        JSON.stringify(this.model)
-      )
+    toJSON() {
+      return JSON.parse(JSON.stringify(this.model))
     }
   }
 
-/*eslint semi: 0 */
-/* https://github.com/vuejs/rollup-plugin-vue/issues/169 */
-};
+  /*eslint semi: 0 */
+  /* https://github.com/vuejs/rollup-plugin-vue/issues/169 */
+}

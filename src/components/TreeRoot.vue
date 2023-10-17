@@ -1,43 +1,20 @@
 <template>
-  <component
-    :is="tag"
-    role="tree"
-    :class="{'tree': true, 'tree-loading': this.loading, 'tree--draggable' : !!this.draggableNode}"
-  >
+  <component :is="tag" role="tree" :class="{ tree: true, 'tree-loading': loading, 'tree--draggable': !!draggableNode }">
     <template v-if="filter && matches.length == 0">
-      <div
-        class="tree-filter-empty"
-        v-html="opts.filter.emptyText"
-      />
+      <div class="tree-filter-empty" v-html="opts.filter.emptyText" />
     </template>
     <template v-else>
-      <ul
-        class="tree-root"
-        @dragstart="onDragStart"
-      >
+      <ul class="tree-root" @dragstart="onDragStart">
         <template v-if="opts.filter.plainList && matches.length > 0">
-          <TreeNode
-            v-for="node in visibleMatches"
-            :key="node.id"
-            :node="node"
-            :options="opts"
-          />
+          <TreeNode v-for="node in visibleMatches" :key="node.id" :node="node" :options="opts" />
         </template>
         <template v-else>
-          <TreeNode
-            v-for="node in visibleModel"
-            :key="node.id"
-            :node="node"
-            :options="opts"
-          />
+          <TreeNode v-for="node in visibleModel" :key="node.id" :node="node" :options="opts" />
         </template>
       </ul>
     </template>
 
-    <DraggableNode
-      v-if="draggableNode"
-      :target="draggableNode"
-    />
+    <DraggableNode v-if="draggableNode" :target="draggableNode" />
   </component>
 </template>
 
@@ -46,7 +23,6 @@
   import DraggableNode from './DraggableNode.vue'
   import TreeMixin from '../mixins/TreeMixin.js'
   import TreeDnd from '../mixins/DndMixin.js'
-  import Tree from '../lib/Tree.js'
 
   const defaults = {
     direction: 'ltr',
@@ -65,7 +41,9 @@
     deletion: false,
     dnd: false,
     editing: false,
-    onFetchError: function(err) { throw err }
+    onFetchError: function (err) {
+      throw err
+    }
   }
 
   const filterDefaults = {
@@ -83,10 +61,11 @@
     },
     plainList: false,
     showChildren: true
-  };
+  }
 
   export default {
     name: 'Tree',
+
     components: {
       TreeNode,
       DraggableNode
@@ -94,7 +73,7 @@
 
     mixins: [TreeMixin, TreeDnd],
 
-    provide: _ => ({
+    provide: () => ({
       tree: null
     }),
 
@@ -103,7 +82,7 @@
 
       options: {
         type: Object,
-        default: _ => ({})
+        default: () => ({})
       },
 
       filter: String,
@@ -114,17 +93,13 @@
       }
     },
 
-    data () {
+    data() {
       // we should not mutating a prop directly...
       // that's why we have to create a new object
       // TODO: add method for changing options
       let opts = Object.assign({}, defaults, this.options)
 
-      opts.filter = Object.assign(
-        {},
-        filterDefaults,
-        opts.filter
-      )
+      opts.filter = Object.assign({}, filterDefaults, opts.filter)
 
       return {
         model: [],
@@ -138,22 +113,22 @@
 
     computed: {
       visibleModel() {
-        return this.model.filter(function(node) {
+        return this.model.filter(function (node) {
           return node && node.visible()
-        }) 
+        })
       },
       visibleMatches() {
-        return this.matches.filter(function(node) {
+        return this.matches.filter(function (node) {
           return node && node.visible()
         })
       }
     },
-    
+
     watch: {
-      filter (term) {
+      filter(term) {
         this.tree.filter(term)
       }
-    },
+    }
   }
 </script>
 
@@ -190,7 +165,8 @@
     outline: 1px solid #7baff2;
   }
 
-  .drag-above > .tree-content::before, .drag-below > .tree-content::after {
+  .drag-above > .tree-content::before,
+  .drag-below > .tree-content::after {
     display: block;
     content: '';
     position: absolute;

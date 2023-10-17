@@ -1,17 +1,23 @@
+const isProduction = process.env.NODE_ENV === 'production'
+
 module.exports = {
-  extends: [
-    //"eslint:recommended",
-    //"plugin:prettier/recommended",
-    "plugin:vue/recommended"
-  ],
-  plugins: [
-   //"prettier".
-  "jest"
-  ],
+  root: true,
+  env: {
+    node: true,
+    'jest/globals': true
+  },
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    parser: '@babel/eslint-parser',
+    sourceType: 'module'
+  },
+  extends: ['plugin:vue/recommended', 'eslint:recommended', 'plugin:prettier/recommended'],
+  plugins: ['jest', 'prettier'],
   rules: {
-    eqeqeq: "off",
-    "no-cond-assign": "off"
+    'no-console': isProduction ? 'warn' : 'off',
+    'no-debugger': isProduction ? 'warn' : 'off',
+    'vue/html-indent': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/multi-word-component-names': 'warn'
   }
 }
-
-// fix the warnings and then uncomment more options above if you want

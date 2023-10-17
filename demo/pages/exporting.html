@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
     <title>Liquor Tree: Basic Usage</title>
-    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css" />
     <script src="../assets/menu.js"></script>
 
     <!-- first import Vue -->
-    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+    <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
     <script src="../assets/vue.js"></script>
     <script src="/liquor-tree.umd.js"></script>
-
 
     <style>
       .demo-tree {
@@ -25,10 +24,9 @@
       }
     </style>
   </head>
+
   <body>
-    <div class="hello">
-      Basic Usage.
-    </div>
+    <div class="hello">Basic Usage.</div>
 
     <div id="app">
       <div class="examples">
@@ -43,9 +41,7 @@
         </div>
 
         <div class="example">
-          <div class="example-description">
-            Copied Tree from the right
-          </div>
+          <div class="example-description">Copied Tree from the right</div>
           <div class="example-tree">
             <tree ref="targetTree" />
           </div>
@@ -64,9 +60,7 @@
 
         methods: {
           exportTree() {
-            let exportedTreeData = copyObject(
-              this.$refs.sourceTree.toJSON()
-            )
+            let exportedTreeData = copyObject(this.$refs.sourceTree.toJSON())
 
             let targetTree = this.$refs.targetTree.tree
 
@@ -74,15 +68,14 @@
           },
 
           addRandomNode() {
-            this.$refs.sourceTree.append(
-              `New Node ${Math.random()}`
-            )
+            this.$refs.sourceTree.append(`New Node ${Math.random()}`)
           }
         }
       })
 
       function getTreeData() {
-        return [{
+        return [
+          {
             text: 'Item 1',
             state: {
               selected: true
@@ -94,7 +87,8 @@
             state: {
               expanded: true
             },
-            children: [{
+            children: [
+              {
                 text: '<b>Item 2.1</b>',
                 state: {
                   checked: true
@@ -105,7 +99,8 @@
               },
               {
                 text: 'Item 2.3',
-                children: [{
+                children: [
+                  {
                     text: 'Item 2.2.3.1'
                   },
                   {
@@ -116,7 +111,8 @@
                   },
                   {
                     text: 'Item 2.2.3.4',
-                    children: [{
+                    children: [
+                      {
                         text: 'Item 2.2.3.4.1'
                       },
                       {
@@ -149,7 +145,8 @@
               expanded: true,
               disabled: true
             },
-            children: [{
+            children: [
+              {
                 text: 'Item 5.1'
               },
               {
@@ -163,6 +160,5 @@
         ]
       }
     </script>
-
   </body>
 </html>

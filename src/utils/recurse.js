@@ -1,5 +1,4 @@
-
-export function recurseDown (obj, fn) {
+export function recurseDown(obj, fn) {
   let res
 
   if (Array.isArray(obj)) {

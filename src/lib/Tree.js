@@ -11,7 +11,7 @@ import sort from '../utils/sort'
 import fetchDelay from '../utils/fetchDelay'
 
 export default class Tree {
-  constructor (vm) {
+  constructor(vm) {
     this.vm = vm
     this.options = vm.opts
 
@@ -21,7 +21,7 @@ export default class Tree {
     const fetchData = this.options.fetchData
 
     if (typeof fetchData === 'string') {
-      this.options.fetchData = ((template) => {
+      this.options.fetchData = (template => {
         const urlTemplate = createTemplate(template)
 
         return node => {
@@ -31,19 +31,19 @@ export default class Tree {
     }
   }
 
-  $on (name, ...args) {
+  $on(name, ...args) {
     this.vm.$on(name, ...args)
   }
 
-  $once (name, ...args) {
+  $once(name, ...args) {
     this.vm.$once(name, ...args)
   }
 
-  $off (name, ...args) {
+  $off(name, ...args) {
     this.vm.$off(name, ...args)
   }
 
-  $emit (name, ...args) {
+  $emit(name, ...args) {
     if (this.__silence) {
       return
     }
@@ -55,7 +55,7 @@ export default class Tree {
     }
   }
 
-  _sort (source, compareFn, deep) {
+  _sort(source, compareFn, deep) {
     if (deep !== false) {
       this.recurseDown(source, node => {
         if (node.hasChildren()) {
@@ -67,11 +67,11 @@ export default class Tree {
     sort(source, compareFn)
   }
 
-  sortTree (compareFn, deep) {
+  sortTree(compareFn, deep) {
     this._sort(this.model, compareFn, deep)
   }
 
-  sort (query, compareFn, deep) {
+  sort(query, compareFn, deep) {
     const targetNode = this.find(query, true)
 
     if (!targetNode || !compareFn) {
@@ -83,7 +83,7 @@ export default class Tree {
     })
   }
 
-  clearFilter () {
+  clearFilter() {
     this.recurseDown(node => {
       node.state('matched', false)
       node.state('visible', true)
@@ -97,7 +97,7 @@ export default class Tree {
     this.vm.$emit('tree:filtered', [], '')
   }
 
-  filter (query) {
+  filter(query) {
     if (!query) {
       return this.clearFilter()
     }
@@ -153,11 +153,11 @@ export default class Tree {
     return matches
   }
 
-  selected () {
+  selected() {
     return new Selection(this, ...this.selectedNodes)
   }
 
-  checked () {
+  checked() {
     if (!this.options.checkbox) {
       return null
     }
@@ -165,7 +165,7 @@ export default class Tree {
     return new Selection(this, ...this.checkedNodes)
   }
 
-  loadChildren (node) {
+  loadChildren(node) {
     if (!node) {
       return
     }
@@ -176,28 +176,24 @@ export default class Tree {
       node.vm.loading = true
     }
 
-    const result = this.fetch(node)
-      .then(children => {
-        node.append(children)
-        node.isBatch = false
+    const result = this.fetch(node).then(children => {
+      node.append(children)
+      node.isBatch = false
 
-        if (this.options.autoCheckChildren) {
-          if (node.checked()) {
-            node.recurseDown(child => {
-              child.state('checked', true)
-            })
-          }
-
-          node.refreshIndeterminateState()
+      if (this.options.autoCheckChildren) {
+        if (node.checked()) {
+          node.recurseDown(child => {
+            child.state('checked', true)
+          })
         }
 
-        this.$emit('tree:data:received', node)
-      })
+        node.refreshIndeterminateState()
+      }
 
-    return Promise.all([
-      fetchDelay(this.options.minFetchDelay),
-      result
-    ]).then(_ => {
+      this.$emit('tree:data:received', node)
+    })
+
+    return Promise.all([fetchDelay(this.options.minFetchDelay), result]).then(() => {
       if (node.vm) {
         node.vm.loading = false
       }
@@ -206,12 +202,11 @@ export default class Tree {
     })
   }
 
-  fetch (node, parseData) {
+  fetch(node, parseData) {
     let result = this.options.fetchData(node)
 
     if (!result.then) {
-      result = get(result)
-        .catch(this.options.onFetchError)
+      result = get(result).catch(this.options.onFetchError)
     }
 
     if (parseData === false) {
@@ -229,7 +224,7 @@ export default class Tree {
       .catch(this.options.onFetchError)
   }
 
-  fetchInitData () {
+  fetchInitData() {
     // simulate root node
     const node = {
       id: 'root',
@@ -239,7 +234,7 @@ export default class Tree {
     return this.fetch(node, false)
   }
 
-  setModel (data) {
+  setModel(data) {
     return new Promise(resolve => {
       this.model = this.parse(data, this.options.modelParse)
 
@@ -251,9 +246,9 @@ export default class Tree {
       /* eslint-enable */
 
       /**
-      * VueJS transform properties to reactives when constructor is running
-      * And we lose List object (extended from Array)
-      */
+       * VueJS transform properties to reactives when constructor is running
+       * And we lose List object (extended from Array)
+       */
       this.selectedNodes = new List()
       this.checkedNodes = new List()
 
@@ -288,9 +283,7 @@ export default class Tree {
           }
         })
 
-        this.selectedNodes
-          .empty()
-          .add(top)
+        this.selectedNodes.empty().add(top)
       }
 
       // Nodes can't be selected on init. By it's possible to select through API
@@ -300,7 +293,7 @@ export default class Tree {
     })
   }
 
-  recurseDown (node, fn) {
+  recurseDown(node, fn) {
     if (!fn && node) {
       fn = node
       node = this.model
@@ -313,7 +306,7 @@ export default class Tree {
     return recurseDown(node, fn)
   }
 
-  select (node, extendList) {
+  select(node, extendList) {
     const treeNode = this.getNode(node)
 
     if (!treeNode) {
@@ -324,15 +317,13 @@ export default class Tree {
       this.selectedNodes.add(treeNode)
     } else {
       this.unselectAll()
-      this.selectedNodes
-        .empty()
-        .add(treeNode)
+      this.selectedNodes.empty().add(treeNode)
     }
 
     return true
   }
 
-  selectAll () {
+  selectAll() {
     if (!this.options.multiple) {
       return false
     }
@@ -340,15 +331,13 @@ export default class Tree {
     this.selectedNodes.empty()
 
     this.recurseDown(node => {
-      this.selectedNodes.add(
-        node.select(true)
-      )
+      this.selectedNodes.add(node.select(true))
     })
 
     return true
   }
 
-  unselect (node) {
+  unselect(node) {
     const treeNode = this.getNode(node)
 
     if (!treeNode) {
@@ -360,25 +349,25 @@ export default class Tree {
     return true
   }
 
-  unselectAll () {
+  unselectAll() {
     let node
 
-    while (node = this.selectedNodes.pop()) {
+    while ((node = this.selectedNodes.pop())) {
       node.unselect()
     }
 
     return true
   }
 
-  check (node) {
+  check(node) {
     this.checkedNodes.add(node)
   }
 
-  uncheck (node) {
+  uncheck(node) {
     this.checkedNodes.remove(node)
   }
 
-  checkAll () {
+  checkAll() {
     this.recurseDown(node => {
       if (node.depth === 0) {
         if (node.indeterminate()) {
@@ -390,17 +379,17 @@ export default class Tree {
     })
   }
 
-  uncheckAll () {
+  uncheckAll() {
     let node
 
-    while (node = this.checkedNodes.pop()) {
+    while ((node = this.checkedNodes.pop())) {
       node.uncheck()
     }
 
     return true
   }
 
-  expand (node) {
+  expand(node) {
     if (node.expanded()) {
       return false
     }
@@ -410,7 +399,7 @@ export default class Tree {
     return true
   }
 
-  collapse (node) {
+  collapse(node) {
     if (node.collapsed()) {
       return false
     }
@@ -420,7 +409,7 @@ export default class Tree {
     return true
   }
 
-  toggleExpand (node) {
+  toggleExpand(node) {
     if (!node.hasChildren()) {
       return false
     }
@@ -430,7 +419,7 @@ export default class Tree {
     return true
   }
 
-  toggleCollapse (node) {
+  toggleCollapse(node) {
     if (!node.hasChildren()) {
       return false
     }
@@ -440,7 +429,7 @@ export default class Tree {
     return true
   }
 
-  expandAll () {
+  expandAll() {
     this.recurseDown(node => {
       if (node.hasChildren() && node.collapsed()) {
         node.expand()
@@ -448,7 +437,7 @@ export default class Tree {
     })
   }
 
-  collapseAll () {
+  collapseAll() {
     this.recurseDown(node => {
       if (node.hasChildren() && node.expanded()) {
         node.collapse()
@@ -456,7 +445,7 @@ export default class Tree {
     })
   }
 
-  index (node, verbose) {
+  index(node, verbose) {
     let target = node.parent
 
     if (target) {
@@ -478,13 +467,13 @@ export default class Tree {
     return index
   }
 
-  nextNode (node) {
+  nextNode(node) {
     const { target, index } = this.index(node, true)
 
     return target[index + 1] || null
   }
 
-  nextVisibleNode (node) {
+  nextVisibleNode(node) {
     if (node.hasChildren() && node.expanded()) {
       return node.first()
     }
@@ -498,13 +487,13 @@ export default class Tree {
     return nextNode
   }
 
-  prevNode (node) {
+  prevNode(node) {
     const { target, index } = this.index(node, true)
 
     return target[index - 1] || null
   }
 
-  prevVisibleNode (node) {
+  prevVisibleNode(node) {
     const prevNode = this.prevNode(node)
 
     if (!prevNode) {
@@ -518,7 +507,7 @@ export default class Tree {
     return prevNode
   }
 
-  addToModel (node, index = this.model.length) {
+  addToModel(node, index = this.model.length) {
     node = this.objectToNode(node)
 
     this.model.splice(index, 0, node)
@@ -531,7 +520,7 @@ export default class Tree {
     return node
   }
 
-  append (criteria, node) {
+  append(criteria, node) {
     const targetNode = this.find(criteria)
 
     if (targetNode) {
@@ -541,7 +530,7 @@ export default class Tree {
     return false
   }
 
-  prepend (criteria, node) {
+  prepend(criteria, node) {
     const targetNode = this.find(criteria)
 
     if (targetNode) {
@@ -551,7 +540,7 @@ export default class Tree {
     return false
   }
 
-  before (targetNode, sourceNode) {
+  before(targetNode, sourceNode) {
     targetNode = this.find(targetNode)
 
     const position = this.index(targetNode, true)
@@ -561,11 +550,7 @@ export default class Tree {
       return false
     }
 
-    position.target.splice(
-      position.index,
-      0,
-      node
-    )
+    position.target.splice(position.index, 0, node)
 
     node.parent = targetNode.parent
     this.$emit('node:added', node)
@@ -573,7 +558,7 @@ export default class Tree {
     return node
   }
 
-  after (targetNode, sourceNode) {
+  after(targetNode, sourceNode) {
     targetNode = this.find(targetNode)
 
     const position = this.index(targetNode, true)
@@ -583,11 +568,7 @@ export default class Tree {
       return false
     }
 
-    position.target.splice(
-      position.index + 1,
-      0,
-      node
-    )
+    position.target.splice(position.index + 1, 0, node)
 
     node.parent = targetNode.parent
     this.$emit('node:added', node)
@@ -595,7 +576,7 @@ export default class Tree {
     return node
   }
 
-  addNode (node) {
+  addNode(node) {
     const index = this.model.length
 
     node = objectToNode(node)
@@ -606,13 +587,11 @@ export default class Tree {
     return node
   }
 
-  remove (criteria, multiple) {
-    return this.removeNode(
-      this.find(criteria, multiple)
-    )
+  remove(criteria, multiple) {
+    return this.removeNode(this.find(criteria, multiple))
   }
 
-  removeNode (node) {
+  removeNode(node) {
     if (node instanceof Selection) {
       return node.remove()
     }
@@ -623,19 +602,13 @@ export default class Tree {
 
     if (!node.parent) {
       if (~this.model.indexOf(node)) {
-        this.model.splice(
-          this.model.indexOf(node),
-          1
-        )
+        this.model.splice(this.model.indexOf(node), 1)
       }
     } else {
       const children = node.parent.children
 
       if (~children.indexOf(node)) {
-        children.splice(
-          children.indexOf(node),
-          1
-        )
+        children.splice(children.indexOf(node), 1)
       }
     }
 
@@ -662,21 +635,18 @@ export default class Tree {
 
     if (matches && matches.length) {
       if (matches.includes(node)) {
-        matches.splice(
-          matches.indexOf(node),
-          1
-        )
+        matches.splice(matches.indexOf(node), 1)
       }
     }
 
     return node
   }
 
-  isNode (node) {
+  isNode(node) {
     return node instanceof Node
   }
 
-  find (criteria, multiple) {
+  find(criteria, multiple) {
     if (this.isNode(criteria)) {
       return criteria
     }
@@ -694,7 +664,7 @@ export default class Tree {
     return new Selection(this, [result[0]])
   }
 
-  updateData (criteria, callback) {
+  updateData(criteria, callback) {
     const nodes = this.find(criteria)
 
     nodes.forEach(node => node.setData(callback(node)))
@@ -702,7 +672,7 @@ export default class Tree {
     return nodes
   }
 
-  getNodeById (id) {
+  getNodeById(id) {
     let targetNode = null
 
     recurseDown(this.model, node => {
@@ -715,7 +685,7 @@ export default class Tree {
     return targetNode
   }
 
-  getNode (node) {
+  getNode(node) {
     if (this.isNode(node)) {
       return node
     }
@@ -723,11 +693,11 @@ export default class Tree {
     return null
   }
 
-  objectToNode (obj) {
+  objectToNode(obj) {
     return objectToNode(this, obj)
   }
 
-  parse (data, options) {
+  parse(data, options) {
     if (!options) {
       options = this.options.propertyNames
     }

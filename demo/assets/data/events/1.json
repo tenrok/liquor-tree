@@ -1,6 +1,14 @@
 [
-  { "text": "Who Should Read This Book?" },
-  { "text": "How to Read This Book" },
-  { "text": "What’s in This Book?" },
-  { "text": "Have Fun!" }
+  {
+    "text": "Who Should Read This Book?"
+  },
+  {
+    "text": "How to Read This Book"
+  },
+  {
+    "text": "What's in This Book?"
+  },
+  {
+    "text": "Have Fun!"
+  }
 ]

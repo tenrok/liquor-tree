@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
     <title>Liquor Tree: Filtering</title>
-    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css" />
     <script src="../assets/menu.js"></script>
 
     <!-- first import Vue -->
-    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+    <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
     <script src="../assets/vue.js"></script>
     <script src="/liquor-tree.umd.js"></script>
 
@@ -30,22 +30,18 @@
       }
     </style>
   </head>
+
   <body>
-    <div class="hello">
-      Filtering. Using content of the book "JavaScript for Kids"
-    </div>
+    <div class="hello">Filtering. Using content of the book "JavaScript for Kids"</div>
 
     <div id="app">
       <div class="examples">
         <div class="example">
           <div class="example-description">
-            <input type="text" placeholder="Type to filter..." v-model="treeFilter0" class="filter-field">
+            <input type="text" placeholder="Type to filter..." v-model="treeFilter0" class="filter-field" />
           </div>
           <div class="example-tree">
-            <tree
-              class="tree-highlights"
-              :filter="treeFilter0"
-              :options="treeOptions0" />
+            <tree class="tree-highlights" :filter="treeFilter0" :options="treeOptions0" />
           </div>
         </div>
 
@@ -59,7 +55,7 @@
             </p>
           </div>
           <div class="example-tree">
-            <tree :filter="treeFilter1" :options="treeOptions1" >
+            <tree :filter="treeFilter1" :options="treeOptions1">
               <div slot-scope="{ node }" class="node-info">
                 <span class="node-name">{{ node.text }}</span>
                 <span class="node-complexity">{{ node.data.complexity }}</span>
@@ -70,12 +66,10 @@
 
         <div class="example">
           <div class="example-description">
-            <input type="text" placeholder="Type to filter..." v-model="treeFilter2" class="filter-field">
+            <input type="text" placeholder="Type to filter..." v-model="treeFilter2" class="filter-field" />
           </div>
           <div class="example-tree">
-            <tree
-              :filter="treeFilter2"
-              :options="treeOptions2" />
+            <tree :filter="treeFilter2" :options="treeOptions2" />
           </div>
         </div>
       </div>
@@ -111,11 +105,9 @@
             filter: {
               plainList: true
             }
-          },
-
+          }
         })
       })
     </script>
-
   </body>
 </html>

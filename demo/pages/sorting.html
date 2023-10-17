@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
     <title>Liquor Tree: Sorting</title>
-    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css" />
     <script src="../assets/menu.js"></script>
 
     <!-- first import Vue -->
-    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+    <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
     <script src="../assets/vue.js"></script>
     <script src="/liquor-tree.umd.js"></script>
 
@@ -47,46 +47,40 @@
       }
     </style>
   </head>
+
   <body>
-    <div class="hello">
-      Sorting. Using content of the book "JavaScript for Kids"
-    </div>
+    <div class="hello">Sorting. Using content of the book "JavaScript for Kids"</div>
 
     <div id="app">
       <div class="examples">
         <div class="example">
           <div class="example-description">
             <span>
-                Sort tree:
-                <select v-model="treeSort.order">
-                    <option value=""></option>
-                    <option value="asc">Asc</option>
-                    <option value="desc">Desc</option>
-                </select>
+              Sort tree:
+              <select v-model="treeSort.order">
+                <option value=""></option>
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+              </select>
             </span>
 
             <span>
-              <label>
-                Recursive: <input type="checkbox" value="true" v-model="treeSort.recursive">
-              </label>
+              <label> Recursive: <input type="checkbox" value="true" v-model="treeSort.recursive" /> </label>
             </span>
           </div>
           <div class="example-tree">
-            <tree
-              ref="tree"
-              :options="treeOptions0"
-              @tree:mounted="onTreeMounted" />
+            <tree ref="tree" :options="treeOptions0" @tree:mounted="onTreeMounted" />
           </div>
         </div>
         <div class="example">
           <div class="example-description">
             Cusom sorting (data score):
             <span>
-                <select v-model="treeSort.orderScore">
-                    <option value=""></option>
-                    <option value="asc">Asc</option>
-                    <option value="desc">Desc</option>
-                </select>
+              <select v-model="treeSort.orderScore">
+                <option value=""></option>
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+              </select>
             </span>
           </div>
           <div class="example-tree">
@@ -106,7 +100,7 @@
         el: '#app',
         data: () => ({
           treeOptions0: {
-            fetchData: '/assets/data/sorting.json',
+            fetchData: '/assets/data/sorting.json'
           },
 
           treeSort: {
@@ -140,7 +134,7 @@
 
           customSort(order) {
             function sort(node0, node1) {
-              let r = (node0.data.score - node1.data.score)
+              let r = node0.data.score - node1.data.score
               let p = 'asc' == order ? 1 : -1
 
               if (isNaN(r)) {
@@ -154,17 +148,12 @@
           },
 
           sortTree() {
-            this.$refs.tree.sortTree(
-              this.treeSort.order,
-              this.treeSort.recursive
-            )
+            this.$refs.tree.sortTree(this.treeSort.order, this.treeSort.recursive)
           },
 
-          sort() {
-          }
+          sort() {}
         }
       })
     </script>
-
   </body>
 </html>

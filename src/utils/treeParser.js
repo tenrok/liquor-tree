@@ -22,7 +22,7 @@ const defaultPropertyNames = {
   isBatch: 'isBatch'
 }
 
-function convertNames (obj, names) {
+function convertNames(obj, names) {
   return {
     id: obj[names.id],
     text: obj[names.text],
@@ -34,7 +34,7 @@ function convertNames (obj, names) {
 }
 
 const TreeParser = {
-  parse (data, tree, options = {}) {
+  parse(data, tree, options = {}) {
     if (typeof data === 'string') {
       data = JSON.parse(data)
     }
@@ -43,13 +43,9 @@ const TreeParser = {
       data = [data]
     }
 
-    const p = Object.assign(
-      {},
-      defaultPropertyNames,
-      options
-    )
+    const p = Object.assign({}, defaultPropertyNames, options)
 
-    const preparedItems = data.map(function converter (item) {
+    const preparedItems = data.map(function converter(item) {
       const convertedItem = convertNames(item, p)
 
       // Possible to receive 1 child like a simple object. It must be converted to an array

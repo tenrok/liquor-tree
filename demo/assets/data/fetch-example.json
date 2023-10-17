@@ -1,16 +1,17 @@
-[{
+[
+  {
     "text": "Item 1",
     "state": {
       "selected": true
     }
   },
-
   {
     "text": "Item 2",
     "state": {
       "expanded": true
     },
-    "children": [{
+    "children": [
+      {
         "text": "<b>Item 2.1</b>",
         "state": {
           "checked": true
@@ -21,7 +22,8 @@
       },
       {
         "text": "Item 2.3",
-        "children": [{
+        "children": [
+          {
             "text": "Item 2.2.3.1"
           },
           {
@@ -32,7 +34,8 @@
           },
           {
             "text": "Item 2.2.3.4",
-            "children": [{
+            "children": [
+              {
                 "text": "Item 2.2.3.4.1"
               },
               {
@@ -47,25 +50,23 @@
       }
     ]
   },
-
   {
     "text": "Item 3",
     "state": {
       "selected": true
     }
   },
-
   {
     "text": "Item 4"
   },
-
   {
     "text": "Item 5",
     "state": {
       "expanded": true,
       "disabled": true
     },
-    "children": [{
+    "children": [
+      {
         "text": "Item 5.1"
       },
       {

@@ -4,11 +4,11 @@ const DropPosition = {
   ON: 'drag-on'
 }
 
-function isMovingStarted (event, start) {
+function isMovingStarted(event, start) {
   return Math.abs(event.clientX - start[0]) > 5 || Math.abs(event.clientY - start[1]) > 5
 }
 
-function composedPath (event) {
+function composedPath(event) {
   let el = event.target
   const path = []
 
@@ -28,7 +28,7 @@ function composedPath (event) {
   return path
 }
 
-function getPath (event) {
+function getPath(event) {
   if (event.path) {
     return event.path
   }
@@ -40,7 +40,7 @@ function getPath (event) {
   return composedPath(event)
 }
 
-function getSelectedNode (event) {
+function getSelectedNode(event) {
   let className
   let i = 0
 
@@ -57,7 +57,7 @@ function getSelectedNode (event) {
   return null
 }
 
-function getDropDestination (e) {
+function getDropDestination(e) {
   const selectedNode = getSelectedNode(e)
 
   if (!selectedNode) {
@@ -67,7 +67,7 @@ function getDropDestination (e) {
   return selectedNode
 }
 
-function updateHelperClasses (target, classes) {
+function updateHelperClasses(target, classes) {
   if (!target) {
     return
   }
@@ -87,7 +87,7 @@ function updateHelperClasses (target, classes) {
   target.className = className.replace(/\s+/g, ' ')
 }
 
-function getDropPosition (e, element) {
+function getDropPosition(e, element) {
   const coords = element.getBoundingClientRect()
   const nodeSection = coords.height / 3
 
@@ -96,15 +96,13 @@ function getDropPosition (e, element) {
   if (coords.top + nodeSection >= e.clientY) {
     dropPosition = DropPosition.ABOVE
   } else if (coords.top + nodeSection * 2 <= e.clientY) {
-    (
-      dropPosition = DropPosition.BELOW
-    )
+    dropPosition = DropPosition.BELOW
   }
 
   return dropPosition
 }
 
-function callDndCb (args, opts, method) {
+function callDndCb(args, opts, method) {
   if (!opts || !opts[method] || typeof opts[method] !== 'function') {
     return
   }
@@ -112,7 +110,7 @@ function callDndCb (args, opts, method) {
   return opts[method](...args) !== false
 }
 
-function clearDropClasses (parent) {
+function clearDropClasses(parent) {
   for (const key in DropPosition) {
     const el = parent.querySelectorAll(`.${DropPosition[key]}`)
 
@@ -124,11 +122,11 @@ function clearDropClasses (parent) {
 
 export default {
   methods: {
-    onDragStart (e) {
+    onDragStart(e) {
       e.preventDefault()
     },
 
-    startDragging (node, event) {
+    startDragging(node, event) {
       if (!node.isDraggable() || callDndCb([node], this.tree.options.dnd, 'onDragStart') === false) {
         return
       }
@@ -139,7 +137,7 @@ export default {
       this.initDragListeners()
     },
 
-    initDragListeners () {
+    initDragListeners() {
       let dropPosition
 
       const removeListeners = () => {
@@ -147,7 +145,7 @@ export default {
         window.removeEventListener('mousemove', onMouseMove, true)
       }
 
-      const onMouseUp = (e) => {
+      const onMouseUp = e => {
         if (!this.$$startDragPosition) {
           e.stopPropagation()
         }
@@ -159,13 +157,9 @@ export default {
         if (this.$$dropDestination && this.tree.isNode(this.$$dropDestination) && this.$$dropDestination.vm) {
           updateHelperClasses(this.$$dropDestination.vm.$el, null)
 
-          const cbResult = callDndCb(
-            [this.draggableNode.node, this.$$dropDestination, dropPosition],
-            this.tree.options.dnd,
-            'onDragFinish'
-          )
+          const cbResult = callDndCb([this.draggableNode.node, this.$$dropDestination, dropPosition], this.tree.options.dnd, 'onDragFinish')
 
-          if (cbResult !== false && !(!this.$$dropDestination.isDropable() && dropPosition === DropPosition.ON || !dropPosition)) {
+          if (cbResult !== false && !((!this.$$dropDestination.isDropable() && dropPosition === DropPosition.ON) || !dropPosition)) {
             this.draggableNode.node.finishDragging(this.$$dropDestination, dropPosition)
             this.draggableNode.node.parent = this.$$dropDestination
           }
@@ -179,7 +173,7 @@ export default {
         removeListeners()
       }
 
-      const onMouseMove = (e) => {
+      const onMouseMove = e => {
         if (this.$$startDragPosition && !isMovingStarted(e, this.$$startDragPosition)) {
           return
         } else {
@@ -227,11 +221,7 @@ export default {
 
           dropPosition = getDropPosition(e, dropDestination)
 
-          const cbResult = callDndCb(
-            [this.draggableNode.node, this.$$dropDestination, dropPosition],
-            this.tree.options.dnd,
-            'onDragOn'
-          )
+          const cbResult = callDndCb([this.draggableNode.node, this.$$dropDestination, dropPosition], this.tree.options.dnd, 'onDragOn')
 
           const isDropable = this.$$dropDestination.isDropable() && cbResult !== false
 

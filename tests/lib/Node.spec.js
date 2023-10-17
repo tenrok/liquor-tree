@@ -12,18 +12,22 @@ const tree = new Tree(vm)
 
 describe('Lib: Node.js', () => {
   it('node constructor arguments', () => {
-    expect(() => { new Node() }).toThrowError('Node can not be empty')
-    expect(() => { new Node(null, {}) }).toThrowError('Node must have a Tree context!')
+    expect(() => {
+      new Node()
+    }).toThrowError('Node can not be empty')
+    expect(() => {
+      new Node(null, {})
+    }).toThrowError('Node must have a Tree context!')
 
     // TODO: whether to check Tree instance?
   })
 
-  it('node\'s specified and auto generated id', () => {
+  it("node's specified and auto generated id", () => {
     const node0 = new Node(tree, { id: 10 })
     const node1 = new Node(tree, {})
 
     expect(node0.id).toBe(10)
-    expect(node1.id).toMatch(/\w{8}-\w{4}-\w{4}-\w{4}-\w{8}/)  // example: 4097b198-bba3-678d-f61c-d72a40bfd0a7
+    expect(node1.id).toMatch(/\w{8}-\w{4}-\w{4}-\w{4}-\w{8}/) // example: 4097b198-bba3-678d-f61c-d72a40bfd0a7
   })
 
   it('node data object (text migrates to data property)', () => {
@@ -74,10 +78,7 @@ describe('Lib: Node.js', () => {
     const childNode = objectToNode(tree, { text: 'Item 1.4.2', children: ['Some node'] })
     const node = objectToNode(tree, {
       text: 'Item 1',
-      children: [
-        'Item 1.2',
-        childNode
-      ]
+      children: ['Item 1.2', childNode]
     })
 
     expect(node.depth).toBe(0)
@@ -86,9 +87,7 @@ describe('Lib: Node.js', () => {
   })
 
   it('recurse functions', () => {
-    const childNode = objectToNode(tree, { text: 'Item 1.4.2', children: [
-      'Item 1.4.2.1', 'Item 1.4.2.2'
-    ] })
+    const childNode = objectToNode(tree, { text: 'Item 1.4.2', children: ['Item 1.4.2.1', 'Item 1.4.2.2'] })
 
     const node = objectToNode(tree, {
       text: 'Item 1',
@@ -97,9 +96,7 @@ describe('Lib: Node.js', () => {
         'Item 1.3',
         {
           text: 'Item 1.4',
-          children: [
-            'Item 1.4.1', childNode, 'Item 1.4.3'
-          ]
+          children: ['Item 1.4.1', childNode, 'Item 1.4.3']
         },
         {
           text: 'Item 1.5'
@@ -108,9 +105,16 @@ describe('Lib: Node.js', () => {
     })
 
     const recurseDownExpected = [
-      'Item 1', 'Item 1.2', 'Item 1.3',
-      'Item 1.4', 'Item 1.4.1', 'Item 1.4.2', 'Item 1.4.2.1', 'Item 1.4.2.2',
-      'Item 1.4.3', 'Item 1.5'
+      'Item 1',
+      'Item 1.2',
+      'Item 1.3',
+      'Item 1.4',
+      'Item 1.4.1',
+      'Item 1.4.2',
+      'Item 1.4.2.1',
+      'Item 1.4.2.2',
+      'Item 1.4.3',
+      'Item 1.5'
     ]
 
     const recurseDownArray = []
@@ -141,7 +145,8 @@ describe('Lib: Node.js', () => {
   it('node selection', () => {
     const tree = new Tree(vm)
     const model = tree.parse({
-      text: 'Node', state: {
+      text: 'Node',
+      state: {
         selected: false
       }
     })
@@ -166,7 +171,8 @@ describe('Lib: Node.js', () => {
   it('node check', () => {
     const tree = new Tree(vm)
     const model = tree.parse({
-      text: 'Node', state: {
+      text: 'Node',
+      state: {
         checked: false
       }
     })
@@ -200,9 +206,8 @@ describe('Lib: Node.js', () => {
   it('node enable', () => {
     const tree = new Tree(vm)
     const model = tree.parse({
-      text: 'Node 0', children: [
-        'Node 01', 'Node 02'
-      ]
+      text: 'Node 0',
+      children: ['Node 01', 'Node 02']
     })
 
     tree.setModel(model)

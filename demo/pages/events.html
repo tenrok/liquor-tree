@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
     <title>Liquor Tree: Basic Usage</title>
-    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css" />
     <script src="../assets/menu.js"></script>
 
     <!-- first import Vue -->
-    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+    <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
     <script src="../assets/vue.js"></script>
     <script src="/liquor-tree.umd.js"></script>
-
 
     <style>
       .demo-tree {
@@ -43,7 +42,6 @@
         text-align: left;
         display: flex;
         justify-content: space-between;
-
       }
 
       .events-table .event:nth-of-type(odd) {
@@ -63,28 +61,32 @@
         flex-basis: 25%;
       }
 
-      .fade-enter-active, .fade-leave-active {
+      .fade-enter-active,
+      .fade-leave-active {
         transition: opacity 2s;
       }
-      .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+
+      .fade-enter,
+    .fade-leave-to
+
+    /* .fade-leave-active до версии 2.1.8 */ {
         opacity: 0;
       }
 
       .node-controls a {
-        color: #ff14ce
+        color: #ff14ce;
       }
     </style>
   </head>
+
   <body>
-    <div class="hello">
-      Tree Events.
-    </div>
+    <div class="hello">Tree Events.</div>
 
     <div id="app">
       <div class="examples">
         <div class="example">
           <div class="example-description">
-            <input type="text" placeholder="Type to filter..." v-model="filter" class="filter-field">
+            <input type="text" placeholder="Type to filter..." v-model="filter" class="filter-field" />
           </div>
           <div class="example-tree">
             <tree :data="data" :options="opts" :filter="filter" ref="tree">
@@ -101,9 +103,7 @@
         </div>
 
         <div class="example">
-          <div class="example-description">
-            List of tree events. Open console to details.
-          </div>
+          <div class="example-description">List of tree events. Open console to details.</div>
 
           <div class="events-table">
             <div class="events-table-header">
@@ -133,8 +133,8 @@
         { name: 'tree:data:fetch', args: ['Parent Node'] },
         { name: 'tree:data:received', args: ['Parent Node'] },
 
-        { name: 'node:disabled', args: ['Node']},
-        { name: 'node:enabled', args: ['Node']},
+        { name: 'node:disabled', args: ['Node'] },
+        { name: 'node:enabled', args: ['Node'] },
         { name: 'node:shown', args: ['Node'] },
         { name: 'node:hidden', args: ['Node'] },
         { name: 'node:dblclick', args: ['Node'] },
@@ -143,13 +143,13 @@
         { name: 'node:checked', args: ['Node', 'Target Node'] },
         { name: 'node:unchecked', args: ['Node'] },
         { name: 'node:expanded', args: ['Node'] },
-        { name: 'node:collapsed',  args: ['Node'] },
-        { name: 'node:added',  args: ['Node', 'New Node'] },
-        { name: 'node:removed',  args: ['Node'] },
-        { name: 'node:text:changed', args: ['Node', 'New Text', 'Old Text']},
+        { name: 'node:collapsed', args: ['Node'] },
+        { name: 'node:added', args: ['Node', 'New Node'] },
+        { name: 'node:removed', args: ['Node'] },
+        { name: 'node:text:changed', args: ['Node', 'New Text', 'Old Text'] },
 
-        { name: 'node:editing:start',  args: ['Node'] },
-        { name: 'node:editing:stop',  args: ['Node', 'isTextChanged'] },
+        { name: 'node:editing:start', args: ['Node'] },
+        { name: 'node:editing:stop', args: ['Node', 'isTextChanged'] }
       ]
 
       let key = 0
@@ -219,13 +219,7 @@
                 nodeText = targetNode.text
               }
 
-              events.push(
-                Object.assign(
-                  {},
-                  event,
-                  { time: new Date, nodeText, id: key++ }
-                )
-              )
+              events.push(Object.assign({}, event, { time: new Date(), nodeText, id: key++ }))
 
               console.log(arguments)
               console.log(node.text, newNode ? newNode.text : null)
@@ -239,25 +233,24 @@
           setTimeout(_ => {
             resolve([
               {
-                "text": "Introduction",
-                "isBatch": true,
-                "id": 1
+                text: 'Introduction',
+                isBatch: true,
+                id: 1
               },
               {
-                "text": "Part I: Fundamentals",
-                "isBatch": true,
-                "id": 2
+                text: 'Part I: Fundamentals',
+                isBatch: true,
+                id: 2
               },
               {
-                "text": "Data Types and Variables",
-                "isBatch": true,
-                "id": 3
+                text: 'Data Types and Variables',
+                isBatch: true,
+                id: 3
               }
             ])
           }, 100)
         })
       }
     </script>
-
   </body>
 </html>

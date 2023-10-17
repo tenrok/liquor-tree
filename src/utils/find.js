@@ -1,4 +1,4 @@
-function striptags (value) {
+function striptags(value) {
   // ssr fix
   if (!!document === false) {
     return value
@@ -12,7 +12,7 @@ function striptags (value) {
   return striptags.__element.innerText
 }
 
-function finder (criteria) {
+function finder(criteria) {
   return function (node) {
     return Object.keys(criteria).every(key => {
       if (key === 'text' || key === 'id') {
@@ -41,14 +41,14 @@ function finder (criteria) {
   }
 }
 
-function isRegExp (val) {
+function isRegExp(val) {
   return val instanceof RegExp
 }
 
-function getAllChildren (source) {
+function getAllChildren(source) {
   const result = []
 
-  source.forEach(function collect (node) {
+  source.forEach(function collect(node) {
     result.push(node)
 
     if (node.children) {
@@ -59,7 +59,7 @@ function getAllChildren (source) {
   return result
 }
 
-export default function find (source, criteria, deep = true) {
+export default function find(source, criteria, deep = true) {
   if (!source || !source.length || !criteria) {
     return null
   }

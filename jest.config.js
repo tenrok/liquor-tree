@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('jest').Config} */
+const config = {
   preset: '@vue/cli-plugin-unit-jest',
   setupFiles: ['<rootDir>/tests/setupTests.js'],
   testURL: 'http://localhost:8999',
@@ -9,4 +10,6 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**'],
   coverageReporters: ['text', 'text-summary']
-};
+}
+
+module.exports = config

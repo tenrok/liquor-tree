@@ -1,12 +1,12 @@
 /*eslint no-undef: 0 */
 
-function request (url) {
+function request(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest()
 
     xhr.open('GET', url)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.addEventListener('load', _ => {
+    xhr.addEventListener('load', () => {
       try {
         const response = JSON.parse(xhr.response)
 
@@ -20,17 +20,17 @@ function request (url) {
   })
 }
 
-export function get (url) {
+export function get(url) {
   return request(url)
 }
 
-export function createTemplate (template) {
+export function createTemplate(template) {
   return source => {
     const re = /{([^}]+)}/
     let m
     let result = template
 
-    while (m = re.exec(result)) {
+    while ((m = re.exec(result))) {
       result = result.replace(m[0], source[m[1]])
     }
 
