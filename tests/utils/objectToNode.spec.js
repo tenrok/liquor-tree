@@ -1,5 +1,5 @@
-import objectToNode from '../../src/utils/objectToNode.js'
-import Node from '../../src/lib/Node.js'
+import objectToNode from '../../src/utils/objectToNode.js';
+import Node from '../../src/lib/Node.js';
 
 const nodeStates = {
   selected: false,
@@ -14,25 +14,25 @@ const nodeStates = {
   dragging: false,
   draggable: true,
   dropable: true
-}
+};
 
-const tree = {}
+const tree = {};
 
 describe('utils: objectToNode.js', () => {
   it('ignore Node instance', () => {
-    const node = new Node(tree, { id: 10 })
-    const newNode = objectToNode(tree, node)
+    const node = new Node(tree, { id: 10 });
+    const newNode = objectToNode(tree, node);
 
-    expect(newNode).toBe(node)
-  })
+    expect(newNode).toBe(node);
+  });
 
   it('parse string', () => {
-    const node = objectToNode(tree, 'New Node')
+    const node = objectToNode(tree, 'New Node');
 
-    expect(node.text).toBe('New Node')
-    expect(node.states).toEqual(nodeStates)
-    expect(node.id).toMatch(/\w{8}-\w{4}-\w{4}-\w{4}-\w{8}/)
-  })
+    expect(node.text).toBe('New Node');
+    expect(node.states).toEqual(nodeStates);
+    expect(node.id).toMatch(/\w{8}-\w{4}-\w{4}-\w{4}-\w{8}/);
+  });
 
   it('parse object', () => {
     const node = objectToNode(tree, {
@@ -45,14 +45,14 @@ describe('utils: objectToNode.js', () => {
       data: {
         mySuperProp: 'atatat'
       }
-    })
+    });
 
     // merge states
-    expect(node.states).toEqual(Object.assign({}, nodeStates, { selected: true, visible: false }))
+    expect(node.states).toEqual(Object.assign({}, nodeStates, { selected: true, visible: false }));
 
-    expect(node.id).toBe(10)
-    expect(node.data.mySuperProp).toBe('atatat')
-  })
+    expect(node.id).toBe(10);
+    expect(node.data.mySuperProp).toBe('atatat');
+  });
 
   it('node children as object', () => {
     const node = objectToNode(tree, {
@@ -62,30 +62,30 @@ describe('utils: objectToNode.js', () => {
         { text: 'Item 1.2' },
         { text: 'Item 1.3' }
       ]
-    })
+    });
 
-    expect(node.children).toHaveLength(3)
-    expect(node.children[0].parent).toBe(node)
-  })
+    expect(node.children).toHaveLength(3);
+    expect(node.children[0].parent).toBe(node);
+  });
 
   it('node children as text', () => {
     const node = objectToNode(tree, {
       text: 'Item 1',
       children: ['Item 1.1', 'Item 1.2', 'Item 1.3']
-    })
+    });
 
-    expect(node.children).toHaveLength(3)
-    expect(node.children[1].text).toBe('Item 1.2')
-  })
+    expect(node.children).toHaveLength(3);
+    expect(node.children[1].text).toBe('Item 1.2');
+  });
 
   it('some child as Node', () => {
-    const childNode = new Node(tree, { text: 'Item 1.1' })
+    const childNode = new Node(tree, { text: 'Item 1.1' });
     const node = objectToNode(tree, {
       text: 'Item 1',
       children: [childNode, 'Item 1.2', 'Item 1.3']
-    })
+    });
 
-    expect(node.children).toHaveLength(3)
-    expect(node.children[0]).toBe(childNode)
-  })
-})
+    expect(node.children).toHaveLength(3);
+    expect(node.children[0]).toBe(childNode);
+  });
+});

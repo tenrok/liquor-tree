@@ -1,5 +1,5 @@
-;(() => {
-  document.addEventListener('DOMContentLoaded', initMenu)
+(() => {
+  document.addEventListener('DOMContentLoaded', initMenu);
 
   const menuItems = [
     { text: 'Basic Usage', href: 'basic-usage.html' },
@@ -15,64 +15,64 @@
     { text: 'Exporting', href: 'exporting.html' },
     { text: 'Drag & Drop', href: 'dnd.html' },
     { text: 'Updating', href: 'updating.html' }
-  ]
+  ];
 
   function initMenu() {
-    const $hello = document.querySelector('.hello')
+    const $hello = document.querySelector('.hello');
 
     if (!$hello) {
-      return console.error('No hello container!')
+      return console.error('No hello container!');
     }
 
-    const $menu = document.createElement('div')
-    $menu.className = 'menu'
+    const $menu = document.createElement('div');
+    $menu.className = 'menu';
 
-    $hello.append($menu)
+    $hello.append($menu);
 
-    $menu.innerHTML = '<span></span><span></span><span></span>'
+    $menu.innerHTML = '<span></span><span></span><span></span>';
 
-    createMenu($menu)
+    createMenu($menu);
   }
 
   function createMenu(menu) {
-    const container = document.createElement('div')
-    container.className = 'menu-container'
+    const container = document.createElement('div');
+    container.className = 'menu-container';
 
     menuItems.forEach(item => {
-      container.append(createLink(item))
-    })
+      container.append(createLink(item));
+    });
 
     menu.addEventListener(
       'click',
       () => {
-        container.classList.add('opened')
-        initClose()
+        container.classList.add('opened');
+        initClose();
       },
       false
-    )
+    );
 
     function initClose() {
       window.addEventListener(
         'mousedown',
         function close(e) {
           if (!e.target.closest('.menu-container')) {
-            container.classList.remove('opened')
-            window.removeEventListener('mousedown', close, false)
+            container.classList.remove('opened');
+            window.removeEventListener('mousedown', close, false);
           }
         },
         false
-      )
+      );
     }
 
-    document.body.appendChild(container)
+    document.body.appendChild(container);
   }
 
   function createLink({ text, href }) {
-    let a = document.createElement('a')
+    let a = document.createElement('a');
 
-    a.innerText = text
-    a.href = href
+    a.innerText = text;
+    a.href = href;
 
-    return a
+    return a;
   }
-})()
+})();

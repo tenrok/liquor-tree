@@ -4,5 +4,7 @@
     "id": 3,
     "isBatch": true
   },
-  { "text": "'Structural Design Patterns'"}
+  {
+    "text": "'Structural Design Patterns'"
+  }
 ]

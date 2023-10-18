@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import TreeNode from './TreeNode.vue'
-  import DraggableNode from './DraggableNode.vue'
-  import TreeMixin from '../mixins/TreeMixin.js'
-  import TreeDnd from '../mixins/DndMixin.js'
+  import TreeNode from './TreeNode.vue';
+  import DraggableNode from './DraggableNode.vue';
+  import TreeMixin from '../mixins/TreeMixin.js';
+  import TreeDnd from '../mixins/DndMixin.js';
 
   const defaults = {
     direction: 'ltr',
@@ -42,26 +42,26 @@
     dnd: false,
     editing: false,
     onFetchError: function (err) {
-      throw err
+      throw err;
     }
-  }
+  };
 
   const filterDefaults = {
     emptyText: 'Nothing found!',
     matcher(query, node) {
-      const isMatched = new RegExp(query, 'i').test(node.text)
+      const isMatched = new RegExp(query, 'i').test(node.text);
 
       if (isMatched) {
         if (node.parent && new RegExp(query, 'i').test(node.parent.text)) {
-          return false
+          return false;
         }
       }
 
-      return isMatched
+      return isMatched;
     },
     plainList: false,
     showChildren: true
-  }
+  };
 
   export default {
     name: 'Tree',
@@ -97,9 +97,9 @@
       // we should not mutating a prop directly...
       // that's why we have to create a new object
       // TODO: add method for changing options
-      let opts = Object.assign({}, defaults, this.options)
+      let opts = Object.assign({}, defaults, this.options);
 
-      opts.filter = Object.assign({}, filterDefaults, opts.filter)
+      opts.filter = Object.assign({}, filterDefaults, opts.filter);
 
       return {
         model: [],
@@ -108,28 +108,28 @@
         opts,
         matches: [],
         draggableNode: null
-      }
+      };
     },
 
     computed: {
       visibleModel() {
         return this.model.filter(function (node) {
-          return node && node.visible()
-        })
+          return node && node.visible();
+        });
       },
       visibleMatches() {
         return this.matches.filter(function (node) {
-          return node && node.visible()
-        })
+          return node && node.visible();
+        });
       }
     },
 
     watch: {
       filter(term) {
-        this.tree.filter(term)
+        this.tree.filter(term);
       }
     }
-  }
+  };
 </script>
 
 <style>

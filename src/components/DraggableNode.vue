@@ -13,13 +13,13 @@
     computed: {
       style() {
         if (undefined === this.target.top) {
-          return 'display: none'
+          return 'display: none';
         }
 
-        return `top: ${this.target.top}px; left: ${this.target.left}px`
+        return `top: ${this.target.top}px; left: ${this.target.left}px`;
       }
     }
-  }
+  };
 </script>
 
 <style>

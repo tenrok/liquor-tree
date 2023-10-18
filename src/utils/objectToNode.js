@@ -1,5 +1,5 @@
-import Node from '../lib/Node'
-import uuidV4 from '../utils/uuidV4'
+import Node from '../lib/Node';
+import uuidV4 from '../utils/uuidV4';
 
 /**
  * Default Node's states
@@ -17,17 +17,17 @@ const nodeStates = {
   dragging: false,
   draggable: true,
   dropable: true
-}
+};
 
 function merge(state = {}) {
-  return Object.assign({}, nodeStates, state)
+  return Object.assign({}, nodeStates, state);
 }
 
 export default function objectToNode(tree, obj) {
-  let node = null
+  let node = null;
 
   if (obj instanceof Node) {
-    return obj
+    return obj;
   }
 
   if (typeof obj === 'string') {
@@ -35,26 +35,26 @@ export default function objectToNode(tree, obj) {
       text: obj,
       state: merge(),
       id: uuidV4()
-    })
+    });
   } else if (Array.isArray(obj)) {
-    return obj.map(o => objectToNode(tree, o))
+    return obj.map(o => objectToNode(tree, o));
   } else {
-    node = new Node(tree, obj)
-    node.states = merge(node.states)
+    node = new Node(tree, obj);
+    node.states = merge(node.states);
 
     if (!node.id) {
-      node.id = uuidV4()
+      node.id = uuidV4();
     }
 
     if (node.children.length) {
       node.children = node.children.map(child => {
-        child = objectToNode(tree, child)
-        child.parent = node
+        child = objectToNode(tree, child);
+        child.parent = node;
 
-        return child
-      })
+        return child;
+      });
     }
   }
 
-  return node
+  return node;
 }

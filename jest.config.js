@@ -10,6 +10,6 @@ const config = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**'],
   coverageReporters: ['text', 'text-summary']
-}
+};
 
-module.exports = config
+module.exports = config;

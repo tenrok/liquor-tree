@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <title>Liquor Tree: Vuex Intergation</title>
-    <link rel="stylesheet" href="../assets/style.css" />
-    <script src="../assets/menu.js"></script>
 
-    <!-- first import Vue -->
-    <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
-    <script src="../assets/vue.js"></script>
-    <script src="https://unpkg.com/vuex@3.6.2/dist/vuex.js"></script>
-    <script src="/liquor-tree.umd.js"></script>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <title>Liquor Tree: Vuex Intergation</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../assets/menu.js"></script>
 
-    <style>
-      .node-info {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-      }
-    </style>
-  </head>
+  <!-- first import Vue -->
+  <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
+  <script src="../assets/vue.js"></script>
+  <script src="https://unpkg.com/vuex@3.6.2/dist/vuex.js"></script>
+  <script src="/liquor-tree.umd.js"></script>
 
-  <body>
-    <div class="hello">Vuex Intergation.</div>
+  <style>
+    .node-info {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+  </style>
+</head>
 
-    <div id="app">
-      <div class="examples">
-        <div class="example">
-          <div class="example-description">Tree Module "A". Synchronizes with the neighbor (-------->)</div>
-          <div class="example-tree">
-            <tree v-if="!loading" :options="treeOptions1" ref="tree"> </tree>
-            <div v-else style="padding: 20px">Loading...</div>
-          </div>
+<body>
+  <div class="hello">Vuex Intergation.</div>
+
+  <div id="app">
+    <div class="examples">
+      <div class="example">
+        <div class="example-description">Tree Module "A". Synchronizes with the neighbor (-------->) </div>
+        <div class="example-tree">
+          <tree v-if="!loading" :options="treeOptions1" ref="tree"> </tree>
+          <div v-else style="padding: 20px">Loading...</div>
         </div>
+      </div>
 
-        <div class="example">
-          <div class="example-description">Tree Module "B". Does not synchronize with the neighbor (<-------)</div>
-          <div class="example-tree">
-            <tree :options="treeOptions2" ref="tree"> </tree>
-          </div>
+      <div class="example">
+        <div class="example-description">Tree Module "B". Does not synchronize with the neighbor (<-------) </div>
+            <div class="example-tree">
+              <tree :options="treeOptions2" ref="tree"> </tree>
+            </div>
         </div>
       </div>
     </div>
@@ -135,7 +136,7 @@
         }),
 
         mounted() {
-          setTimeout(_ => {
+          setTimeout(() => {
             fetch('/assets/data/filtering.json')
               .then(r => r.json())
               .then(data => {
@@ -146,5 +147,6 @@
         }
       })
     </script>
-  </body>
+</body>
+
 </html>

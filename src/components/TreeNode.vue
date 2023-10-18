@@ -1,22 +1,9 @@
 <template>
   <li role="treeitem" class="tree-node" :data-id="node.id" :class="nodeClass" @mousedown.stop="handleMouseDown">
-    <div
-      class="tree-content"
-      :style="[options.direction == 'ltr' ? { 'padding-left': padding } : { 'padding-right': padding }]"
-      @click.stop="select"
-    >
-      <i
-        class="tree-arrow"
-        :class="[{ expanded: node.states.expanded, 'has-child': node.children.length || node.isBatch }, options.direction]"
-        @click.stop="toggleExpand"
-      />
+    <div class="tree-content" :style="[options.direction == 'ltr' ? { 'padding-left': padding } : { 'padding-right': padding }]" @click.stop="select">
+      <i class="tree-arrow" :class="[{ expanded: node.states.expanded, 'has-child': node.children.length || node.isBatch }, options.direction]" @click.stop="toggleExpand" />
 
-      <i
-        v-if="options.checkbox"
-        class="tree-checkbox"
-        :class="{ checked: node.states.checked, indeterminate: node.states.indeterminate }"
-        @click.stop="check"
-      />
+      <i v-if="options.checkbox" class="tree-checkbox" :class="{ checked: node.states.checked, indeterminate: node.states.indeterminate }" @click.stop="check" />
 
       <span ref="anchor" class="tree-anchor" tabindex="-1" @focus="onNodeFocus" @dblclick="tree.$emit('node:dblclick', node)">
         <node-content :node="node" />
@@ -32,7 +19,7 @@
 </template>
 
 <script>
-  import NodeContent from './NodeContent.vue'
+  import NodeContent from './NodeContent.vue';
 
   const TreeNode = {
     name: 'Node',
@@ -47,26 +34,26 @@
 
     watch: {
       node() {
-        this.node.vm = this
+        this.node.vm = this;
       }
     },
 
     data() {
-      this.node.vm = this
+      this.node.vm = this;
 
       return {
         loading: false
-      }
+      };
     },
 
     computed: {
       padding() {
-        return this.node.depth * (this.options.paddingLeft ? this.options.paddingLeft : this.options.nodeIndent) + 'px'
+        return this.node.depth * (this.options.paddingLeft ? this.options.paddingLeft : this.options.nodeIndent) + 'px';
       },
 
       nodeClass() {
-        let state = this.node.states
-        let hasChildren = this.hasChildren()
+        let state = this.node.states;
+        let hasChildren = this.hasChildren();
         let classes = {
           'has-child': hasChildren,
           expanded: hasChildren && state.expanded,
@@ -76,126 +63,126 @@
           dragging: state.dragging,
           loading: this.loading,
           draggable: state.draggable
-        }
+        };
 
         if (this.options.checkbox) {
-          classes['checked'] = state.checked
-          classes['indeterminate'] = state.indeterminate
+          classes['checked'] = state.checked;
+          classes['indeterminate'] = state.indeterminate;
         }
 
-        return classes
+        return classes;
       },
 
       visibleChildren() {
         return this.node.children.filter(function (child) {
-          return child && child.visible()
-        })
+          return child && child.visible();
+        });
       }
     },
 
     methods: {
       onNodeFocus() {
-        this.tree.activeElement = this.node
+        this.tree.activeElement = this.node;
       },
 
       focus() {
-        this.$refs.anchor.focus()
-        this.node.select()
+        this.$refs.anchor.focus();
+        this.node.select();
       },
 
       check() {
         if (this.node.checked()) {
-          this.node.uncheck()
+          this.node.uncheck();
         } else {
-          this.node.check()
+          this.node.check();
         }
       },
 
       select(evnt) {
-        const { ctrlKey } = evnt
-        const opts = this.options
-        const tree = this.tree
-        const node = this.node
+        const { ctrlKey } = evnt;
+        const opts = this.options;
+        const tree = this.tree;
+        const node = this.node;
 
-        tree.$emit('node:clicked', node)
+        tree.$emit('node:clicked', node);
 
         if (opts.editing && node.isEditing) {
-          return
+          return;
         }
 
         if (opts.editing && node.editable()) {
-          return this.startEditing()
+          return this.startEditing();
         }
 
         if (opts.checkbox && opts.checkOnSelect) {
           if (!opts.parentSelect && this.hasChildren()) {
-            return this.toggleExpand()
+            return this.toggleExpand();
           }
 
-          return this.check(ctrlKey)
+          return this.check(ctrlKey);
         }
 
         // 'parentSelect' behaviour.
         // For nodes which has a children list we have to expand/collapse
         if (!opts.parentSelect && this.hasChildren()) {
-          this.toggleExpand()
+          this.toggleExpand();
         }
 
         if (opts.multiple) {
           if (!node.selected()) {
-            node.select(ctrlKey)
+            node.select(ctrlKey);
           } else {
             if (ctrlKey) {
-              node.unselect()
+              node.unselect();
             } else {
               if (this.tree.selectedNodes.length != 1) {
-                tree.unselectAll()
-                node.select()
+                tree.unselectAll();
+                node.select();
               }
             }
           }
         } else {
           if (node.selected() && ctrlKey) {
-            node.unselect()
+            node.unselect();
           } else {
-            node.select()
+            node.select();
           }
         }
       },
 
       toggleExpand() {
         if (this.hasChildren()) {
-          this.node.toggleExpand()
+          this.node.toggleExpand();
         }
       },
 
       hasChildren() {
-        return this.node.hasChildren()
+        return this.node.hasChildren();
       },
 
       startEditing() {
         if (this.tree._editingNode) {
-          this.tree._editingNode.stopEditing()
+          this.tree._editingNode.stopEditing();
         }
 
-        this.node.startEditing()
+        this.node.startEditing();
       },
 
       stopEditing() {
-        this.node.stopEditing()
+        this.node.stopEditing();
       },
 
       handleMouseDown(event) {
         if (!this.options.dnd) {
-          return
+          return;
         }
 
-        this.tree.vm.startDragging(this.node, event)
+        this.tree.vm.startDragging(this.node, event);
       }
     }
-  }
+  };
 
-  export default TreeNode
+  export default TreeNode;
 </script>
 
 <style>

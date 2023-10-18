@@ -1,12 +1,12 @@
 /** @type {import("prettier").Config} */
 const config = {
   arrowParens: 'avoid',
-  printWidth: 140,
-  semi: false,
+  printWidth: 180,
+  semi: true,
   singleQuote: true,
   trailingComma: 'none',
   useTabs: false,
   vueIndentScriptAndStyle: true
-}
+};
 
-module.exports = config
+module.exports = config;

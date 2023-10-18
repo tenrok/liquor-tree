@@ -7,130 +7,130 @@ const keyCodes = {
   DELETE: 46,
   ENTER: 13,
   ESC: 27
-}
+};
 
-const codesArr = [37, 38, 39, 40, 32]
+const codesArr = [37, 38, 39, 40, 32];
 
 function focusUp(tree, node) {
-  const prevNode = tree.prevVisibleNode(node)
+  const prevNode = tree.prevVisibleNode(node);
 
   if (!prevNode) {
-    return
+    return;
   }
 
   if (prevNode.disabled()) {
-    return focusUp(tree, prevNode)
+    return focusUp(tree, prevNode);
   }
 
-  prevNode.focus()
+  prevNode.focus();
 }
 
 function focusdDown(tree, node) {
-  const nextNode = tree.nextVisibleNode(node)
+  const nextNode = tree.nextVisibleNode(node);
 
   if (!nextNode) {
-    return
+    return;
   }
 
   if (nextNode.disabled()) {
-    return focusdDown(tree, nextNode)
+    return focusdDown(tree, nextNode);
   }
 
-  nextNode.focus()
+  nextNode.focus();
 }
 
 function checkNode(tree, node) {
   if (!tree.options.checkbox) {
-    return
+    return;
   }
 
   if (node.checked()) {
-    node.uncheck()
+    node.uncheck();
   } else {
-    node.check()
+    node.check();
   }
 }
 
 function leftArrow(tree, node) {
   if (node.expanded()) {
-    node.collapse()
+    node.collapse();
   } else {
-    const parent = node.parent
+    const parent = node.parent;
 
     if (parent) {
-      parent.focus()
+      parent.focus();
     }
   }
 }
 
 function rightArrow(tree, node) {
   if (node.collapsed()) {
-    node.expand()
+    node.expand();
   } else {
-    const first = node.first()
+    const first = node.first();
 
     if (first) {
-      first.focus()
+      first.focus();
     }
   }
 }
 
 function deleteNode(tree, node) {
-  const deletion = tree.options.deletion
+  const deletion = tree.options.deletion;
 
   if (deletion) {
     if (typeof deletion === 'function') {
       if (deletion(node) === true) {
-        node.remove()
+        node.remove();
       }
     } else if (deletion === true) {
-      node.remove()
+      node.remove();
     }
   }
 }
 
 export default function (tree) {
-  const vm = tree.vm
-  const $el = vm.$el
+  const vm = tree.vm;
+  const $el = vm.$el;
 
   $el.addEventListener(
     'keydown',
     e => {
-      const code = e.keyCode
-      const node = tree.activeElement
+      const code = e.keyCode;
+      const node = tree.activeElement;
 
       if (!tree.isNode(node)) {
-        return
+        return;
       }
 
       if (node.isEditing) {
         switch (code) {
           case keyCodes.ESC:
-            return node.stopEditing(false)
+            return node.stopEditing(false);
         }
       } else {
         if (codesArr.includes(code)) {
-          e.preventDefault()
-          e.stopPropagation()
+          e.preventDefault();
+          e.stopPropagation();
         }
 
         switch (code) {
           case keyCodes.ARROW_LEFT:
-            return leftArrow(tree, node)
+            return leftArrow(tree, node);
           case keyCodes.ARROW_RIGHT:
-            return rightArrow(tree, node)
+            return rightArrow(tree, node);
           case keyCodes.ARROW_TOP:
-            return focusUp(tree, node)
+            return focusUp(tree, node);
           case keyCodes.ARROW_BOTTOM:
-            return focusdDown(tree, node)
+            return focusdDown(tree, node);
           case keyCodes.SPACE:
           case keyCodes.ENTER:
-            return checkNode(tree, node)
+            return checkNode(tree, node);
           case keyCodes.DELETE:
-            return deleteNode(tree, node)
+            return deleteNode(tree, node);
         }
       }
     },
     true
-  )
+  );
 }

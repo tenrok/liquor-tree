@@ -1,5 +1,20 @@
-[{ "text": "'Creational Design Patterns'" },
-{ "text": "'Factory'" },
-{ "text": "'Prototype'" },
-{ "text": "'Mixin'" },
-{ "text": "'Singleton'", "state": { "disabled": true } }]
+[
+  {
+    "text": "'Creational Design Patterns'"
+  },
+  {
+    "text": "'Factory'"
+  },
+  {
+    "text": "'Prototype'"
+  },
+  {
+    "text": "'Mixin'"
+  },
+  {
+    "text": "'Singleton'",
+    "state": {
+      "disabled": true
+    }
+  }
+]

@@ -1,4 +1,4 @@
-import objectToNode from '../utils/objectToNode'
+import objectToNode from '../utils/objectToNode';
 
 /**
   Every Node has certain format:
@@ -20,7 +20,7 @@ const defaultPropertyNames = {
   state: 'state',
   data: 'data',
   isBatch: 'isBatch'
-}
+};
 
 function convertNames(obj, names) {
   return {
@@ -30,39 +30,39 @@ function convertNames(obj, names) {
     state: obj[names.state],
     data: obj[names.data],
     isBatch: obj[names.isBatch]
-  }
+  };
 }
 
 const TreeParser = {
   parse(data, tree, options = {}) {
     if (typeof data === 'string') {
-      data = JSON.parse(data)
+      data = JSON.parse(data);
     }
 
     if (!Array.isArray(data)) {
-      data = [data]
+      data = [data];
     }
 
-    const p = Object.assign({}, defaultPropertyNames, options)
+    const p = Object.assign({}, defaultPropertyNames, options);
 
     const preparedItems = data.map(function converter(item) {
-      const convertedItem = convertNames(item, p)
+      const convertedItem = convertNames(item, p);
 
       // Possible to receive 1 child like a simple object. It must be converted to an array
       // We do not have checks on the correctness of the format. A developer should pass correct format
       if (convertedItem.children && !Array.isArray(convertedItem.children)) {
-        convertedItem.children = [convertedItem.children]
+        convertedItem.children = [convertedItem.children];
       }
 
       if (convertedItem.children) {
-        convertedItem.children = convertedItem.children.map(converter)
+        convertedItem.children = convertedItem.children.map(converter);
       }
 
-      return convertedItem
-    })
+      return convertedItem;
+    });
 
-    return preparedItems.map(item => objectToNode(tree, item))
+    return preparedItems.map(item => objectToNode(tree, item));
   }
-}
+};
 
-export { TreeParser }
+export { TreeParser };
