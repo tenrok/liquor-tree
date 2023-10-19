@@ -1,6 +1,6 @@
 <script>
-  const NodeContent = {
-    name: 'node-content',
+  export default {
+    name: 'NodeContent',
 
     props: ['node'],
 
@@ -18,7 +18,7 @@
         return h('input', {
           domProps: {
             value: node.text,
-            type: 'text'
+            type: 'text',
           },
           class: 'tree-input',
           on: {
@@ -35,9 +35,9 @@
             },
             mouseup(e) {
               e.stopPropagation();
-            }
+            },
           },
-          ref: 'editCtrl'
+          ref: 'editCtrl',
         });
       }
 
@@ -47,11 +47,9 @@
 
       return h('span', {
         domProps: {
-          innerHTML: node.text
-        }
+          innerHTML: node.text,
+        },
       });
-    }
+    },
   };
-
-  export default NodeContent;
 </script>

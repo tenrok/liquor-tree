@@ -29,8 +29,8 @@ There are lots of libraries but there was always something from each (in my humb
 
 ### Installation
 
-- npm: `$ npm install liquor-tree`
-- Yarn: `$ yarn add liquor-tree`
+- npm: `$ npm install @tenrok/liquor-tree`
+- Yarn: `$ yarn add @tenrok/liquor-tree`
 
 It has to be installed to the VueJS instance. Please take a look at the [official documentation](https://vuejs.org/v2/guide/components.html) to understand how to use VueJS components (if needed, of course).
 
@@ -41,7 +41,7 @@ Okay. It's our ways:__
 
 ``` javascript
 import Vue from 'Vue'
-import LiquorTree from 'liquor-tree'
+import LiquorTree from '@tenrok/liquor-tree'
 
 // global registration
 Vue.use(LiquorTree)
@@ -52,13 +52,13 @@ Vue.component(LiquorTree.name, LiquorTree)
 
 
 ``` javascript
-import LiquorTree from 'liquor-tree'
+import LiquorTree from '@tenrok/liquor-tree'
 
 // local registration
 export default {
   name: 'your-awesome-component',
   components: {
-    [LiquorTree.name]: LiquorTree
+    LiquorTree
   },
   ...
 }
@@ -69,7 +69,7 @@ To register the library you can choose between the 3 methods I mention above.
 **When used directly in browser you can include `liquor-tree` via CND (it is a latest version of the library):**
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/liquor-tree/dist/liquor-tree.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tenrok/liquor-tree/dist/liquor-tree.umd.js"></script>
 ```
 
 ### Component Options
@@ -163,20 +163,22 @@ Initial **data** example:
 ```javascript
 <template>
   <div id="app">
-    <tree
+    <liquor-tree
       :data="treeData"
     />
   </div>
 </template>
 
 <script>
-  import Vue from 'Vue'
-  import LiquorTree from 'liquor-tree'
-
-  Vue.use(LiquorTree)
+  const LiquorTree = () => import('@tenrok/liquor-tree')
 
   export default {
     name: 'awesome-component',
+
+    components: {
+      LiquorTree
+    },
+
     data: () => ({
       treeData: [
         { text: 'Item 1' },
@@ -202,7 +204,7 @@ The following example illustrates linking to the `VueTree` library without havin
 </head>
 <body>
   <div id="app">
-    <tree
+    <liquor-tree
       :data="treeData"
       :options="treeOptions"
     />
@@ -211,7 +213,7 @@ The following example illustrates linking to the `VueTree` library without havin
   <!-- first import Vue -->
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <!-- import JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/liquor-tree/dist/liquor-tree.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tenrok/liquor-tree/dist/liquor-tree.umd.js"></script>
   <script>
     new Vue({
       el: '#app',
@@ -245,7 +247,7 @@ You able to select multiple nodes with `Ctrl` key. The same behavior as we are u
 The example above is default mode. You can switch it to `checkbox` mode. To do it just add the tree's option `checkbox`:
 
 ``` html
-    <tree
+    <liquor-tree
       :data="treeData"
       :options="{ checkbox: true }"
     />
@@ -301,7 +303,7 @@ Ohh, too hard. See example:
 - In this case Node will be removed
 
 ```javascript
-    <tree
+    <liquor-tree
       :data="treeData"
       :options="{ deletion: true }"
     />
@@ -310,7 +312,7 @@ Ohh, too hard. See example:
 - In this case if Node doesn't have children it will be removed
 
 ```javascript
-    <tree
+    <liquor-tree
       :data="treeData"
       :options="{ deletion: node => !node.hasChildren() }"
     />

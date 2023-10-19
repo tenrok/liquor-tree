@@ -20,7 +20,7 @@ export default class Node {
     this.isEditing = false;
 
     this.data = Object.assign({}, item.data || {}, {
-      text: item.text
+      text: item.text,
     });
 
     if (!tree) {
@@ -134,7 +134,7 @@ export default class Node {
       let indeterminate = 0;
       let disabled = 0;
 
-      this.children.forEach(child => {
+      this.children.forEach((child) => {
         if (child.checked()) {
           checked++;
         }
@@ -231,7 +231,7 @@ export default class Node {
     const targetNode = this;
 
     if (this.tree.options.autoCheckChildren) {
-      this.recurseDown(node => {
+      this.recurseDown((node) => {
         node.state('indeterminate', false);
 
         if (node.disabled() && !checkDisabledChildren) {
@@ -267,7 +267,7 @@ export default class Node {
     const targetNode = this;
 
     if (this.tree.options.autoCheckChildren) {
-      this.recurseDown(node => {
+      this.recurseDown((node) => {
         node.state('indeterminate', false);
 
         if (node.checked()) {
@@ -327,7 +327,7 @@ export default class Node {
     }
 
     if (this.tree.options.autoDisableChildren) {
-      this.recurseDown(node => {
+      this.recurseDown((node) => {
         if (node.disabled()) {
           node.state('disabled', false);
           node.$emit('enabled');
@@ -351,7 +351,7 @@ export default class Node {
     }
 
     if (this.tree.options.autoDisableChildren) {
-      this.recurseDown(node => {
+      this.recurseDown((node) => {
         if (node.enabled()) {
           node.state('disabled', true);
           node.$emit('disabled');
@@ -370,7 +370,7 @@ export default class Node {
   }
 
   expandTop(ignoreEvent) {
-    this.recurseUp(parent => {
+    this.recurseUp((parent) => {
       parent.state('expanded', true);
 
       if (ignoreEvent !== true) {
@@ -591,7 +591,7 @@ export default class Node {
     node = this.tree.objectToNode(node);
 
     if (Array.isArray(node)) {
-      node.reverse().map(n => this.insertAt(n, index));
+      node.reverse().map((n) => this.insertAt(n, index));
 
       return new Selection(this.tree, [...node]);
     }
@@ -601,7 +601,7 @@ export default class Node {
     this.children.splice(index, 0, node);
 
     if (node.disabled() && node.hasChildren()) {
-      node.recurseDown(child => {
+      node.recurseDown((child) => {
         child.state('disabled', true);
       });
     }
@@ -691,7 +691,7 @@ export default class Node {
       text: this.text,
       data: this.data,
       state: this.states,
-      children: this.children.map(node => this.tree.objectToNode(node).toJSON())
+      children: this.children.map((node) => this.tree.objectToNode(node).toJSON()),
     };
   }
 }

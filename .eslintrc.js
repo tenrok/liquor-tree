@@ -4,12 +4,12 @@ module.exports = {
   root: true,
   env: {
     node: true,
-    'jest/globals': true
+    'jest/globals': true,
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@babel/eslint-parser',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended', 'plugin:prettier/recommended'],
   plugins: ['jest', 'prettier'],
@@ -18,6 +18,7 @@ module.exports = {
     'no-debugger': isProduction ? 'warn' : 'off',
     'vue/html-indent': 'off',
     'vue/max-attributes-per-line': 'off',
-    'vue/multi-word-component-names': 'warn'
-  }
+    'vue/multi-word-component-names': 'warn',
+    'vue/no-mutating-props': 'warn',
+  },
 };

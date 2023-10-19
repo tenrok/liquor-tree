@@ -14,7 +14,7 @@ function initEvents(vm) {
     } else {
       vm.$emit('input', {
         selected: multiple ? selected : selected[0] || null,
-        checked: vm.checked()
+        checked: vm.checked(),
       });
     }
   };
@@ -68,7 +68,7 @@ export default {
       dataProvider = Promise.resolve(this.data);
     }
 
-    dataProvider.then(data => {
+    dataProvider.then((data) => {
       if (!data) {
         data = [];
       }
@@ -104,7 +104,7 @@ export default {
         assert(Array.isArray(mutations), '`mutations` must be an array');
       }
 
-      Store.subscribe(action => {
+      Store.subscribe((action) => {
         if (!mutations) {
           this.tree.setModel(getter());
         } else if (mutations.includes(action.type)) {
@@ -212,8 +212,8 @@ export default {
 
     toJSON() {
       return JSON.parse(JSON.stringify(this.model));
-    }
-  }
+    },
+  },
 
   /*eslint semi: 0 */
   /* https://github.com/vuejs/rollup-plugin-vue/issues/169 */

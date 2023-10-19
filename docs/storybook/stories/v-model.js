@@ -28,7 +28,7 @@ const storyComponents = [
     template: `
         <div>
           <p>Selected nodes: <b>{{ selectedNodes.map(s => s.text) }}</b></p>
-          <tree
+          <liquor-tree
             :data="treeData"
             v-model="selectedNodes"
           />
@@ -48,7 +48,7 @@ const storyComponents = [
     template: `
         <div>
           <p>Selected nodes: <b>{{ selectedNode && selectedNode.text }}</b></p>
-          <tree
+          <liquor-tree
             :data="treeData"
             :options="treeOptions"
             v-model="selectedNode"
@@ -73,7 +73,7 @@ const storyComponents = [
             <p>Selected nodes: <b>{{ treeModel.selected.map(s => s.text) }}</b></p>
           </div>
 
-          <tree
+          <liquor-tree
             :data="treeData"
             :options="treeOptions"
             v-model="treeModel"

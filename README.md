@@ -1,5 +1,11 @@
 # Liquor Tree
 
+[![Version](https://img.shields.io/npm/v/@tenrok/liquor-tree.svg)](https://www.npmjs.com/package/@tenrok/liquor-tree)
+[![License](https://img.shields.io/npm/l/@tenrok/liquor-tree.svg)](https://github.com/tenrok/liquor-tree/blob/main/LICENSE)
+[![Vue.js](https://img.shields.io/badge/vue-2.7.14-brightgreen.svg?logo=vue.js)](https://github.com/vuejs/vue)
+[![GitHub last commit](https://img.shields.io/github/last-commit/tenrok/liquor-tree.svg)](https://github.com/tenrok/liquor-tree)
+[![Downloads](https://img.shields.io/npm/dm/@tenrok/liquor-tree.svg)](https://npmcharts.com/compare/@tenrok/liquor-tree?minimal=true)
+
 A Vue tree component that allows you to present hierarchically organized data in a nice and logical manner.
 
 [documentation](https://amsik.github.io/liquor-tree/) | [demos](https://amsik.github.io/liquor-tree/#Examples)
@@ -20,13 +26,13 @@ A Vue tree component that allows you to present hierarchically organized data in
 **Npm:**
 
 ```shell
-$ npm install liquor-tree
+$ npm install @tenrok/liquor-tree
 ```
 
 **Yarn:**
 
 ```shell
-$ yarn add liquor-tree
+$ yarn add @tenrok/liquor-tree
 ```
 
 ## Live Playground
@@ -46,21 +52,21 @@ There are a lot of examples for you. All sources of stories are located in `liqu
 ```html
   <!-- Vue Component -->
   <template>
-    <tree
-        :data="items"
-        :options="options"
-        ref="tree"
+    <liquor-tree
+      :data="items"
+      :options="options"
+      ref="tree"
     />
   </template>
 
   <script>
-    import Vue from 'Vue'
-    import LiquorTree from 'liquor-tree'
-
-    Vue.use(LiquorTree)
+    const LiquorTree = () => import('@tenrok/liquor-tree')
 
     export default {
-      ...
+      components: {
+        LiquorTree
+      },
+
       data() {
         return {
           items: [

@@ -1,7 +1,7 @@
 const DropPosition = {
   ABOVE: 'drag-above',
   BELOW: 'drag-below',
-  ON: 'drag-on'
+  ON: 'drag-on',
 };
 
 function isMovingStarted(event, start) {
@@ -145,7 +145,7 @@ export default {
         window.removeEventListener('mousemove', onMouseMove, true);
       };
 
-      const onMouseUp = e => {
+      const onMouseUp = (e) => {
         if (!this.$$startDragPosition) {
           e.stopPropagation();
         }
@@ -173,7 +173,7 @@ export default {
         removeListeners();
       };
 
-      const onMouseMove = e => {
+      const onMouseMove = (e) => {
         if (this.$$startDragPosition && !isMovingStarted(e, this.$$startDragPosition)) {
           return;
         } else {
@@ -235,6 +235,6 @@ export default {
 
       window.addEventListener('mouseup', onMouseUp, true);
       window.addEventListener('mousemove', onMouseMove, true);
-    }
-  }
+    },
+  },
 };

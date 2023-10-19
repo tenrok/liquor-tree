@@ -91,7 +91,7 @@
           <input type="text" placeholder="Type to filter..." v-model="filter" class="filter-field" />
         </div>
         <div class="example-tree">
-          <tree :data="data" :options="opts" :filter="filter" ref="tree">
+          <liquor-tree :data="data" :options="opts" :filter="filter" ref="tree">
             <div slot-scope="{ node }" class="node-container">
               <div class="node-text">{{ node.text }}</div>
               <div class="node-controls">

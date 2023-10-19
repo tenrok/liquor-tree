@@ -42,7 +42,7 @@
           <input type="text" placeholder="Type to filter..." v-model="treeFilter0" class="filter-field" />
         </div>
         <div class="example-tree">
-          <tree class="tree-highlights" :filter="treeFilter0" :options="treeOptions0" />
+          <liquor-tree class="tree-highlights" :filter="treeFilter0" :options="treeOptions0" />
         </div>
       </div>
 
@@ -56,7 +56,7 @@
           </p>
         </div>
         <div class="example-tree">
-          <tree :filter="treeFilter1" :options="treeOptions1">
+          <liquor-tree :filter="treeFilter1" :options="treeOptions1">
             <div slot-scope="{ node }" class="node-info">
               <span class="node-name">{{ node.text }}</span>
               <span class="node-complexity">{{ node.data.complexity }}</span>
@@ -70,7 +70,7 @@
           <input type="text" placeholder="Type to filter..." v-model="treeFilter2" class="filter-field" />
         </div>
         <div class="example-tree">
-          <tree :filter="treeFilter2" :options="treeOptions2" />
+          <liquor-tree :filter="treeFilter2" :options="treeOptions2" />
         </div>
       </div>
     </div>

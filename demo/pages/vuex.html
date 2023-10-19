@@ -31,7 +31,7 @@
       <div class="example">
         <div class="example-description">Tree Module "A". Synchronizes with the neighbor (-------->) </div>
         <div class="example-tree">
-          <tree v-if="!loading" :options="treeOptions1" ref="tree"> </tree>
+          <liquor-tree v-if="!loading" :options="treeOptions1" ref="tree"> </tree>
           <div v-else style="padding: 20px">Loading...</div>
         </div>
       </div>
@@ -39,7 +39,7 @@
       <div class="example">
         <div class="example-description">Tree Module "B". Does not synchronize with the neighbor (<-------) </div>
             <div class="example-tree">
-              <tree :options="treeOptions2" ref="tree"> </tree>
+              <liquor-tree :options="treeOptions2" ref="tree"> </tree>
             </div>
         </div>
       </div>

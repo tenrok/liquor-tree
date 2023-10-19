@@ -14,7 +14,7 @@ function striptags(value) {
 
 function finder(criteria) {
   return function (node) {
-    return Object.keys(criteria).every(key => {
+    return Object.keys(criteria).every((key) => {
       if (key === 'text' || key === 'id') {
         const c = criteria[key];
         let val = node[key];
@@ -36,7 +36,7 @@ function finder(criteria) {
         key = 'states';
       }
 
-      return Object.keys(states).every(s => node[key][s] === states[s]);
+      return Object.keys(states).every((s) => node[key][s] === states[s]);
     });
   };
 }
@@ -75,7 +75,7 @@ export default function find(source, criteria, deep = true) {
 
   if (typeof criteria === 'string' || criteria instanceof RegExp) {
     criteria = {
-      text: criteria
+      text: criteria,
     };
   }
 

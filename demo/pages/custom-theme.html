@@ -129,7 +129,7 @@
         <input type="text" v-model="treeFilter" placeholder="Type to filter..." />
       </div>
       <div class="navigation-tree">
-        <tree :data="treeData" :options="treeOptions" :filter="treeFilter" v-model="selectedNode">
+        <liquor-tree :data="treeData" :options="treeOptions" :filter="treeFilter" v-model="selectedNode">
           <div class="tree-scope" slot-scope="{ node }">
             <template v-if="node.data.isRoot">
               <!-- you can add an icon here, but it is too long for the demo... sorry  -->

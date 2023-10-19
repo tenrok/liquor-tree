@@ -21,10 +21,10 @@ export default class Tree {
     const fetchData = this.options.fetchData;
 
     if (typeof fetchData === 'string') {
-      this.options.fetchData = (template => {
+      this.options.fetchData = ((template) => {
         const urlTemplate = createTemplate(template);
 
-        return node => {
+        return (node) => {
           return get(urlTemplate(node)).catch(this.options.onFetchError);
         };
       })(fetchData);
@@ -57,7 +57,7 @@ export default class Tree {
 
   _sort(source, compareFn, deep) {
     if (deep !== false) {
-      this.recurseDown(source, node => {
+      this.recurseDown(source, (node) => {
         if (node.hasChildren()) {
           sort(node.children, compareFn);
         }
@@ -78,13 +78,13 @@ export default class Tree {
       return;
     }
 
-    targetNode.forEach(node => {
+    targetNode.forEach((node) => {
       this._sort(node.children, compareFn, deep);
     });
   }
 
   clearFilter() {
-    this.recurseDown(node => {
+    this.recurseDown((node) => {
       node.state('matched', false);
       node.state('visible', true);
       node.state('expanded', node.__expanded);
@@ -107,7 +107,7 @@ export default class Tree {
     const { showChildren, plainList } = this.options.filter;
 
     // collect nodes
-    this.recurseDown(node => {
+    this.recurseDown((node) => {
       if (predicate(query, node)) {
         matches.push(node);
       }
@@ -124,19 +124,19 @@ export default class Tree {
       node.state('expanded', true);
     });
 
-    matches.reverse().forEach(node => {
+    matches.reverse().forEach((node) => {
       node.state('matched', true);
       node.state('visible', true);
 
       node.showChildren = !plainList;
 
       if (node.hasChildren()) {
-        node.recurseDown(n => {
+        node.recurseDown((n) => {
           n.state('visible', !!showChildren);
         }, true);
       }
 
-      node.recurseUp(parent => {
+      node.recurseUp((parent) => {
         parent.state('visible', true);
         parent.state('expanded', true);
       });
@@ -176,13 +176,13 @@ export default class Tree {
       node.vm.loading = true;
     }
 
-    const result = this.fetch(node).then(children => {
+    const result = this.fetch(node).then((children) => {
       node.append(children);
       node.isBatch = false;
 
       if (this.options.autoCheckChildren) {
         if (node.checked()) {
-          node.recurseDown(child => {
+          node.recurseDown((child) => {
             child.state('checked', true);
           });
         }
@@ -214,7 +214,7 @@ export default class Tree {
     }
 
     return result
-      .then(data => {
+      .then((data) => {
         try {
           return this.parse(data, this.options.modelParse);
         } catch (e) {
@@ -228,14 +228,14 @@ export default class Tree {
     // simulate root node
     const node = {
       id: 'root',
-      name: 'root'
+      name: 'root',
     };
 
     return this.fetch(node, false);
   }
 
   setModel(data) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.model = this.parse(data, this.options.modelParse);
 
       /* eslint-disable */
@@ -252,7 +252,7 @@ export default class Tree {
       this.selectedNodes = new List();
       this.checkedNodes = new List();
 
-      recurseDown(this.model, node => {
+      recurseDown(this.model, (node) => {
         node.tree = this;
 
         if (node.selected()) {
@@ -268,7 +268,7 @@ export default class Tree {
         }
 
         if (this.options.autoDisableChildren && node.disabled()) {
-          node.recurseDown(child => {
+          node.recurseDown((child) => {
             child.state('disabled', true);
           });
         }
@@ -277,7 +277,7 @@ export default class Tree {
       if (!this.options.multiple && this.selectedNodes.length) {
         const top = this.selectedNodes.top();
 
-        this.selectedNodes.forEach(node => {
+        this.selectedNodes.forEach((node) => {
           if (top !== node) {
             node.state('selected', false);
           }
@@ -330,7 +330,7 @@ export default class Tree {
 
     this.selectedNodes.empty();
 
-    this.recurseDown(node => {
+    this.recurseDown((node) => {
       this.selectedNodes.add(node.select(true));
     });
 
@@ -368,7 +368,7 @@ export default class Tree {
   }
 
   checkAll() {
-    this.recurseDown(node => {
+    this.recurseDown((node) => {
       if (node.depth === 0) {
         if (node.indeterminate()) {
           node.state('indeterminate', false);
@@ -430,7 +430,7 @@ export default class Tree {
   }
 
   expandAll() {
-    this.recurseDown(node => {
+    this.recurseDown((node) => {
       if (node.hasChildren() && node.collapsed()) {
         node.expand();
       }
@@ -438,7 +438,7 @@ export default class Tree {
   }
 
   collapseAll() {
-    this.recurseDown(node => {
+    this.recurseDown((node) => {
       if (node.hasChildren() && node.expanded()) {
         node.collapse();
       }
@@ -460,7 +460,7 @@ export default class Tree {
       return {
         index: index,
         target,
-        node: target[index]
+        node: target[index],
       };
     }
 
@@ -511,7 +511,7 @@ export default class Tree {
     node = this.objectToNode(node);
 
     this.model.splice(index, 0, node);
-    this.recurseDown(node, n => {
+    this.recurseDown(node, (n) => {
       n.tree = this;
     });
 
@@ -667,7 +667,7 @@ export default class Tree {
   updateData(criteria, callback) {
     const nodes = this.find(criteria);
 
-    nodes.forEach(node => node.setData(callback(node)));
+    nodes.forEach((node) => node.setData(callback(node)));
 
     return nodes;
   }
@@ -675,7 +675,7 @@ export default class Tree {
   getNodeById(id) {
     let targetNode = null;
 
-    recurseDown(this.model, node => {
+    recurseDown(this.model, (node) => {
       if ('' + node.id === id) {
         targetNode = node;
         return false;

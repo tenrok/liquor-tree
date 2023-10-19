@@ -33,18 +33,18 @@ describe('Lib: Node.js', () => {
   it('node data object (text migrates to data property)', () => {
     const node = new Node(tree, {
       text: 'My Text',
-      data: { someDataProp: true }
+      data: { someDataProp: true },
     });
 
     expect(node.data).toEqual({
       text: 'My Text',
-      someDataProp: true
+      someDataProp: true,
     });
   });
 
   it('change node text', () => {
     const node = new Node(tree, {
-      text: 'My Text'
+      text: 'My Text',
     });
 
     expect(node.text).toBe('My Text');
@@ -59,8 +59,8 @@ describe('Lib: Node.js', () => {
       text: 'My Text',
       state: {
         checked: true,
-        selected: false
-      }
+        selected: false,
+      },
     });
 
     expect(node.state('checked')).toBeTruthy();
@@ -78,7 +78,7 @@ describe('Lib: Node.js', () => {
     const childNode = objectToNode(tree, { text: 'Item 1.4.2', children: ['Some node'] });
     const node = objectToNode(tree, {
       text: 'Item 1',
-      children: ['Item 1.2', childNode]
+      children: ['Item 1.2', childNode],
     });
 
     expect(node.depth).toBe(0);
@@ -96,33 +96,33 @@ describe('Lib: Node.js', () => {
         'Item 1.3',
         {
           text: 'Item 1.4',
-          children: ['Item 1.4.1', childNode, 'Item 1.4.3']
+          children: ['Item 1.4.1', childNode, 'Item 1.4.3'],
         },
         {
-          text: 'Item 1.5'
-        }
-      ]
+          text: 'Item 1.5',
+        },
+      ],
     });
 
     const recurseDownExpected = ['Item 1', 'Item 1.2', 'Item 1.3', 'Item 1.4', 'Item 1.4.1', 'Item 1.4.2', 'Item 1.4.2.1', 'Item 1.4.2.2', 'Item 1.4.3', 'Item 1.5'];
 
     const recurseDownArray = [];
 
-    node.recurseDown(n => {
+    node.recurseDown((n) => {
       recurseDownArray.push(n.text);
     });
 
     const recurseDownArrayIgnoreTargetExpected = ['Item 1.4.2.1', 'Item 1.4.2.2'];
     const recurseDownArrayIgnoreTarget = [];
 
-    childNode.recurseDown(n => {
+    childNode.recurseDown((n) => {
       recurseDownArrayIgnoreTarget.push(n.text);
     }, true);
 
     const recurseUpExpected = ['Item 1.4.2', 'Item 1.4', 'Item 1'];
     const recurseUpArray = [];
 
-    childNode.children[0].recurseUp(n => {
+    childNode.children[0].recurseUp((n) => {
       recurseUpArray.push(n.text);
     });
 
@@ -136,8 +136,8 @@ describe('Lib: Node.js', () => {
     const model = tree.parse({
       text: 'Node',
       state: {
-        selected: false
-      }
+        selected: false,
+      },
     });
 
     tree.setModel(model);
@@ -162,8 +162,8 @@ describe('Lib: Node.js', () => {
     const model = tree.parse({
       text: 'Node',
       state: {
-        checked: false
-      }
+        checked: false,
+      },
     });
 
     tree.setModel(model);
@@ -178,7 +178,7 @@ describe('Lib: Node.js', () => {
   it('node visible', () => {
     const tree = new Tree(vm);
     const model = tree.parse({
-      text: 'Node'
+      text: 'Node',
     });
 
     tree.setModel(model);
@@ -196,7 +196,7 @@ describe('Lib: Node.js', () => {
     const tree = new Tree(vm);
     const model = tree.parse({
       text: 'Node 0',
-      children: ['Node 01', 'Node 02']
+      children: ['Node 01', 'Node 02'],
     });
 
     tree.setModel(model);

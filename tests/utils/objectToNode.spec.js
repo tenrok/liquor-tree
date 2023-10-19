@@ -13,7 +13,7 @@ const nodeStates = {
   editable: true,
   dragging: false,
   draggable: true,
-  dropable: true
+  dropable: true,
 };
 
 const tree = {};
@@ -40,11 +40,11 @@ describe('utils: objectToNode.js', () => {
       id: 10,
       state: {
         selected: true,
-        visible: false
+        visible: false,
       },
       data: {
-        mySuperProp: 'atatat'
-      }
+        mySuperProp: 'atatat',
+      },
     });
 
     // merge states
@@ -60,8 +60,8 @@ describe('utils: objectToNode.js', () => {
       children: [
         { text: 'Item 1.1', parent: 15 }, // ignoring parent
         { text: 'Item 1.2' },
-        { text: 'Item 1.3' }
-      ]
+        { text: 'Item 1.3' },
+      ],
     });
 
     expect(node.children).toHaveLength(3);
@@ -71,7 +71,7 @@ describe('utils: objectToNode.js', () => {
   it('node children as text', () => {
     const node = objectToNode(tree, {
       text: 'Item 1',
-      children: ['Item 1.1', 'Item 1.2', 'Item 1.3']
+      children: ['Item 1.1', 'Item 1.2', 'Item 1.3'],
     });
 
     expect(node.children).toHaveLength(3);
@@ -82,7 +82,7 @@ describe('utils: objectToNode.js', () => {
     const childNode = new Node(tree, { text: 'Item 1.1' });
     const node = objectToNode(tree, {
       text: 'Item 1',
-      children: [childNode, 'Item 1.2', 'Item 1.3']
+      children: [childNode, 'Item 1.2', 'Item 1.3'],
     });
 
     expect(node.children).toHaveLength(3);

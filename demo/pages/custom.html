@@ -50,7 +50,7 @@
       <div class="example">
         <div class="example-description">Font ionicons. (http://ionicons.com). Implementing Filesystem.</div>
         <div class="example-tree">
-          <tree :data="treeData0" ref="tree" @tree:mounted="treeMounted">
+          <liquor-tree :data="treeData0" ref="tree" @tree:mounted="treeMounted">
             <span class="tree-text" slot-scope="{ node }">
               <template v-if="!node.hasChildren()">
                 <i class="ion-android-star"></i>
@@ -69,7 +69,7 @@
       <div class="example">
         <div class="example-description">Custom icons. Using `data` property for Nodes.</div>
         <div class="example-tree">
-          <tree :data="treeData1">
+          <liquor-tree :data="treeData1">
             <span class="tree-text" slot-scope="{ node }">
               <span class="tree-text__text"> {{ node.text }} </span>
 

@@ -70,7 +70,7 @@
           </span>
         </div>
         <div class="example-tree">
-          <tree ref="tree" :options="treeOptions0" @tree:mounted="onTreeMounted" />
+          <liquor-tree ref="tree" :options="treeOptions0" @tree:mounted="onTreeMounted" />
         </div>
       </div>
       <div class="example">
@@ -85,7 +85,7 @@
           </span>
         </div>
         <div class="example-tree">
-          <tree ref="tree2" :options="treeOptions0">
+          <liquor-tree ref="tree2" :options="treeOptions0">
             <div class="node" slot-scope="{ node }">
               <span class="node-text">{{ node.text }}</span>
               <div class="node-score">{{ node.data.score }}</div>

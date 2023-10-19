@@ -16,7 +16,7 @@ const nodeStates = {
   editable: true,
   dragging: false,
   draggable: true,
-  dropable: true
+  dropable: true,
 };
 
 function merge(state = {}) {
@@ -34,10 +34,10 @@ export default function objectToNode(tree, obj) {
     node = new Node(tree, {
       text: obj,
       state: merge(),
-      id: uuidV4()
+      id: uuidV4(),
     });
   } else if (Array.isArray(obj)) {
-    return obj.map(o => objectToNode(tree, o));
+    return obj.map((o) => objectToNode(tree, o));
   } else {
     node = new Node(tree, obj);
     node.states = merge(node.states);
@@ -47,7 +47,7 @@ export default function objectToNode(tree, obj) {
     }
 
     if (node.children.length) {
-      node.children = node.children.map(child => {
+      node.children = node.children.map((child) => {
         child = objectToNode(tree, child);
         child.parent = node;
 

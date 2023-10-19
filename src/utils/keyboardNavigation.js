@@ -6,7 +6,7 @@ const keyCodes = {
   SPACE: 32,
   DELETE: 46,
   ENTER: 13,
-  ESC: 27
+  ESC: 27,
 };
 
 const codesArr = [37, 38, 39, 40, 32];
@@ -95,7 +95,7 @@ export default function (tree) {
 
   $el.addEventListener(
     'keydown',
-    e => {
+    (e) => {
       const code = e.keyCode;
       const node = tree.activeElement;
 

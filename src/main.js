@@ -1,6 +1,6 @@
 import TreeRoot from './components/TreeRoot.vue';
 
-const install = Vue => {
+const install = (Vue) => {
   Vue.component(TreeRoot.name, TreeRoot);
 };
 

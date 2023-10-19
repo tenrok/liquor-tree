@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'DragNode',
+    name: 'DraggableNode',
 
     props: ['target'],
 
@@ -17,8 +17,8 @@
         }
 
         return `top: ${this.target.top}px; left: ${this.target.left}px`;
-      }
-    }
+      },
+    },
   };
 </script>
 

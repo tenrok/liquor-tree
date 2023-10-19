@@ -27,7 +27,7 @@ const storyComponents = [
     data: () => ({
       treeData: getData()
     }),
-    template: `<tree :data="treeData" />`
+    template: `<liquor-tree :data="treeData" />`
   },
 
   /* single mode */
@@ -38,7 +38,7 @@ const storyComponents = [
         multiple: false
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   },
 
   /* checkbox mode */
@@ -49,7 +49,7 @@ const storyComponents = [
         checkbox: true
       }
     }),
-    template: '<tree :data="treeData" :options="treeOptions" />'
+    template: '<liquor-tree :data="treeData" :options="treeOptions" />'
   },
 
   /* default node states */
@@ -60,7 +60,7 @@ const storyComponents = [
         checkbox: true
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   }
 ];
 

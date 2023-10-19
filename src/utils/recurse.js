@@ -2,7 +2,7 @@ export function recurseDown(obj, fn) {
   let res;
 
   if (Array.isArray(obj)) {
-    return obj.map(node => recurseDown(node, fn));
+    return obj.map((node) => recurseDown(node, fn));
   }
 
   res = fn(obj);

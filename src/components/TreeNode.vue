@@ -21,28 +21,22 @@
 <script>
   import NodeContent from './NodeContent.vue';
 
-  const TreeNode = {
+  export default {
     name: 'Node',
+
+    components: {
+      NodeContent,
+    },
 
     inject: ['tree'],
 
     props: ['node', 'options'],
 
-    components: {
-      NodeContent
-    },
-
-    watch: {
-      node() {
-        this.node.vm = this;
-      }
-    },
-
     data() {
       this.node.vm = this;
 
       return {
-        loading: false
+        loading: false,
       };
     },
 
@@ -52,9 +46,9 @@
       },
 
       nodeClass() {
-        let state = this.node.states;
-        let hasChildren = this.hasChildren();
-        let classes = {
+        const state = this.node.states;
+        const hasChildren = this.hasChildren();
+        const classes = {
           'has-child': hasChildren,
           expanded: hasChildren && state.expanded,
           selected: state.selected,
@@ -62,7 +56,7 @@
           matched: state.matched,
           dragging: state.dragging,
           loading: this.loading,
-          draggable: state.draggable
+          draggable: state.draggable,
         };
 
         if (this.options.checkbox) {
@@ -74,10 +68,14 @@
       },
 
       visibleChildren() {
-        return this.node.children.filter(function (child) {
-          return child && child.visible();
-        });
-      }
+        return this.node.children.filter((child) => child && child.visible());
+      },
+    },
+
+    watch: {
+      node() {
+        this.node.vm = this;
+      },
     },
 
     methods: {
@@ -178,11 +176,9 @@
         }
 
         this.tree.vm.startDragging(this.node, event);
-      }
-    }
+      },
+    },
   };
-
-  export default TreeNode;
 </script>
 
 <style>

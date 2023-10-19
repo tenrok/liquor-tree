@@ -19,7 +19,7 @@ const defaultPropertyNames = {
   children: 'children',
   state: 'state',
   data: 'data',
-  isBatch: 'isBatch'
+  isBatch: 'isBatch',
 };
 
 function convertNames(obj, names) {
@@ -29,7 +29,7 @@ function convertNames(obj, names) {
     children: obj[names.children],
     state: obj[names.state],
     data: obj[names.data],
-    isBatch: obj[names.isBatch]
+    isBatch: obj[names.isBatch],
   };
 }
 
@@ -61,8 +61,8 @@ const TreeParser = {
       return convertedItem;
     });
 
-    return preparedItems.map(item => objectToNode(tree, item));
-  }
+    return preparedItems.map((item) => objectToNode(tree, item));
+  },
 };
 
 export { TreeParser };

@@ -5,76 +5,76 @@ import terser from '@rollup/plugin-terser';
 import alias from '@rollup/plugin-alias';
 import serve from 'rollup-plugin-serve';
 
+const name = 'LiquorTree';
 const version = pkg.version;
 const banner = `
 /*!
- * LiquorTree v${version}
+ * ${name} v${version}
  * Homepage: https://github.com/amsik/liquor-tree
  * (c) ${new Date().getFullYear()} amsik
  * Released under the MIT License.
  */
 `;
 
+const input = 'src/main.js';
+
 const plugins = [
   alias({
-    resolve: ['.vue', '.js']
+    resolve: ['.vue', '.js'],
   }),
   vue({ css: true }),
-  buble({ objectAssign: 'Object.assign' })
+  buble({ objectAssign: 'Object.assign' }),
 ];
 
-const outputES = {
-  file: pkg.module,
-  format: 'es',
-  sourcemap: true,
-  banner
-};
-
-const outputUMD = {
-  file: pkg.main,
-  format: 'umd',
-  name: 'LiquorTree',
-  sourcemap: true,
-  banner
-};
-
-const config = [
-  {
-    input: 'src/main.js',
-    output: outputES,
-    cache: false,
-    plugins
+const esm = {
+  input,
+  output: {
+    file: pkg.module,
+    format: 'es',
+    sourcemap: true,
+    banner,
   },
-  {
-    input: 'src/main.js',
-    output: outputUMD,
-    cache: false,
-    plugins: plugins.concat(
-      process.env.NODE_ENV === 'production'
-        ? terser({
-            output: {
-              comments: function (node, comment) {
-                var text = comment.value;
-                var type = comment.type;
-                if (type == 'comment2') {
-                  return /license/i.test(text);
-                }
-              }
-            }
-          })
-        : []
-    )
-  }
-];
+  cache: false,
+  plugins,
+};
+
+const umd = {
+  input,
+  output: {
+    file: pkg.main,
+    format: 'umd',
+    name,
+    sourcemap: true,
+    banner,
+  },
+  cache: false,
+  plugins,
+};
 
 if (process.env.NODE_ENV === 'development') {
-  config[0].plugins.push(
+  esm.plugins.push(
     serve({
       contentBase: ['dist', 'demo'],
       port: 8081,
-      open: true
+      open: true,
     })
   );
 }
 
-export default config;
+if (process.env.NODE_ENV === 'production') {
+  umd.plugins.push(
+    terser({
+      output: {
+        comments: function (node, comment) {
+          var text = comment.value;
+          var type = comment.type;
+          if (type == 'comment2') {
+            return /license/i.test(text);
+          }
+        },
+      },
+    })
+  );
+}
+
+export default [esm, umd];

@@ -7,7 +7,7 @@ const storyComponents = [
     data: () => ({
       treeData: $store.dispatch('PROMISE')
     }),
-    template: `<tree :data="treeData" />`
+    template: `<liquor-tree :data="treeData" />`
   },
 
   /* fetchData options as string */
@@ -28,7 +28,7 @@ const storyComponents = [
         }
       }
     }),
-    template: `<tree :options="treeOptions" />`
+    template: `<liquor-tree :options="treeOptions" />`
   },
 
   /* fetchData options as string with default data */
@@ -65,7 +65,7 @@ const storyComponents = [
         }
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   },
 
   /* fetchData options as function */
@@ -80,7 +80,7 @@ const storyComponents = [
         }
       }
     }),
-    template: `<tree :options="treeOptions" />`
+    template: `<liquor-tree :options="treeOptions" />`
   }
 ];
 

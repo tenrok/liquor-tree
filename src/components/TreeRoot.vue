@@ -22,7 +22,7 @@
   import TreeNode from './TreeNode.vue';
   import DraggableNode from './DraggableNode.vue';
   import TreeMixin from '../mixins/TreeMixin.js';
-  import TreeDnd from '../mixins/DndMixin.js';
+  import DndMixin from '../mixins/DndMixin.js';
 
   const defaults = {
     direction: 'ltr',
@@ -43,7 +43,7 @@
     editing: false,
     onFetchError: function (err) {
       throw err;
-    }
+    },
   };
 
   const filterDefaults = {
@@ -60,21 +60,21 @@
       return isMatched;
     },
     plainList: false,
-    showChildren: true
+    showChildren: true,
   };
 
   export default {
-    name: 'Tree',
+    name: 'LiquorTree',
 
     components: {
       TreeNode,
-      DraggableNode
+      DraggableNode,
     },
 
-    mixins: [TreeMixin, TreeDnd],
+    mixins: [TreeMixin, DndMixin],
 
     provide: () => ({
-      tree: null
+      tree: null,
     }),
 
     props: {
@@ -82,15 +82,15 @@
 
       options: {
         type: Object,
-        default: () => ({})
+        default: () => ({}),
       },
 
       filter: String,
 
       tag: {
         type: String,
-        default: 'div'
-      }
+        default: 'div',
+      },
     },
 
     data() {
@@ -107,28 +107,25 @@
         loading: false,
         opts,
         matches: [],
-        draggableNode: null
+        draggableNode: null,
       };
     },
 
     computed: {
       visibleModel() {
-        return this.model.filter(function (node) {
-          return node && node.visible();
-        });
+        return this.model.filter((node) => node && node.visible());
       },
+
       visibleMatches() {
-        return this.matches.filter(function (node) {
-          return node && node.visible();
-        });
-      }
+        return this.matches.filter((node) => node && node.visible());
+      },
     },
 
     watch: {
       filter(term) {
         this.tree.filter(term);
-      }
-    }
+      },
+    },
   };
 </script>
 

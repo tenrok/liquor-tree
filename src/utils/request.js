@@ -25,7 +25,7 @@ export function get(url) {
 }
 
 export function createTemplate(template) {
-  return source => {
+  return (source) => {
     const re = /{([^}]+)}/;
     let m;
     let result = template;

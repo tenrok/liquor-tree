@@ -44,7 +44,7 @@ const storyComponents = [
         parentSelect: true
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   },
 
   /* checkOnSelect */
@@ -56,7 +56,7 @@ const storyComponents = [
         checkbox: true
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   },
 
   /* checkOnSelect && parentSelect */
@@ -69,7 +69,7 @@ const storyComponents = [
         checkbox: true
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   },
 
   /* autoCheckChildren */
@@ -81,7 +81,7 @@ const storyComponents = [
         checkbox: true
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   },
 
   /* keyboard navigation */
@@ -93,7 +93,7 @@ const storyComponents = [
         checkbox: true
       }
     }),
-    template: `<tree :data="treeData" :options="treeOptions" />`
+    template: `<liquor-tree :data="treeData" :options="treeOptions" />`
   }
 ];
 

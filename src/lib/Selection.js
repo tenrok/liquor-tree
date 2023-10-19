@@ -1,5 +1,5 @@
 function nodeIterator(context, method, ...args) {
-  context.forEach(node => node[method](...args));
+  context.forEach((node) => node[method](...args));
 }
 
 export default class Selection extends Array {

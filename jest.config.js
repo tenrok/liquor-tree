@@ -5,11 +5,11 @@ const config = {
   testURL: 'http://localhost:8999',
   testMatch: ['<rootDir>/tests/*/*.spec.js'],
   testEnvironmentOptions: {
-    pretendToBeVisual: true
+    pretendToBeVisual: true,
   },
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**'],
-  coverageReporters: ['text', 'text-summary']
+  coverageReporters: ['text', 'text-summary'],
 };
 
 module.exports = config;
