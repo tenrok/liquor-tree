@@ -9,6 +9,7 @@ const version = pkg.version;
 const banner = `
 /*!
  * LiquorTree v${version}
+ * Homepage: https://github.com/amsik/liquor-tree
  * (c) ${new Date().getFullYear()} amsik
  * Released under the MIT License.
  */
@@ -49,9 +50,8 @@ const config = [
     output: outputUMD,
     cache: false,
     plugins: plugins.concat(
-      'production' !== process.env.NODE_ENV
-        ? []
-        : terser({
+      process.env.NODE_ENV === 'production'
+        ? terser({
             output: {
               comments: function (node, comment) {
                 var text = comment.value;
@@ -62,11 +62,12 @@ const config = [
               }
             }
           })
+        : []
     )
   }
 ];
 
-if ('development' == process.env.NODE_ENV) {
+if (process.env.NODE_ENV === 'development') {
   config[0].plugins.push(
     serve({
       contentBase: ['dist', 'demo'],

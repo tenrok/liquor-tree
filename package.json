@@ -1,6 +1,6 @@
 {
-  "name": "liquor-tree",
-  "version": "0.2.70",
+  "name": "@tenrok/liquor-tree",
+  "version": "0.2.71",
   "description": "A Vue.js tree component.",
   "keywords": [
     "vue",
@@ -15,12 +15,22 @@
     "url": "git+https://github.com/amsik/liquor-tree.git"
   },
   "license": "MIT",
-  "author": "Kostiantyn <phlyze@gmail.com>",
+  "author": {
+    "name": "Kostiantyn Poliakov",
+    "email": "phlyze@gmail.com",
+    "url": "https://github.com/amsik"
+  },
+  "contributors": [
+    {
+      "name": "Sergey Solodyagin",
+      "url": "https://github.com/solodyagin"
+    }
+  ],
   "main": "dist/liquor-tree.umd.js",
   "module": "dist/liquor-tree.esm.js",
   "files": [
-    "src",
-    "dist/*.js"
+    "dist/*.js",
+    "src"
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.js",
