@@ -9,10 +9,10 @@
     "vue-tree",
     "treeview"
   ],
-  "homepage": "https://amsik.github.io/liquor-tree/",
+  "homepage": "https://github.com/tenrok/liquor-tree",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/amsik/liquor-tree.git"
+    "url": "git+https://github.com/tenrok/liquor-tree.git"
   },
   "license": "MIT",
   "author": {
@@ -23,14 +23,14 @@
   "contributors": [
     {
       "name": "Sergey Solodyagin",
+      "email": "solodyagin@gmail.com",
       "url": "https://github.com/solodyagin"
     }
   ],
-  "main": "dist/liquor-tree.umd.js",
+  "main": "dist/liquor-tree.umd.min.js",
   "module": "dist/liquor-tree.esm.js",
   "files": [
-    "dist/*.js",
-    "src"
+    "dist/*"
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.js",
