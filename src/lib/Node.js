@@ -1,7 +1,7 @@
-import { recurseDown } from '../utils/recurse';
-import find from '../utils/find';
-import uuidV4 from '../utils/uuidV4';
-import Selection from '../lib/Selection';
+import { recurseDown } from '@/utils/recurse';
+import find from '@/utils/find';
+import uuidV4 from '@/utils/uuidV4';
+import Selection from '@/lib/Selection';
 
 export default class Node {
   constructor(tree, item) {

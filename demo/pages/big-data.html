@@ -1,81 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <title>Liquor Tree: Basic Usage</title>
-    <link rel="stylesheet" href="../assets/style.css" />
-    <script src="../assets/menu.js"></script>
 
-    <!-- first import Vue -->
-    <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
-    <script src="../assets/vue.js"></script>
-    <script src="/liquor-tree.umd.js"></script>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <title>Liquor Tree: Basic Usage</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../assets/menu.js"></script>
 
-    <style>
-      .demo-tree {
-        width: 50%;
-      }
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
 
-      .tree.tree-loading {
-        width: 300px;
-        height: 300px;
-        background: #fff no-repeat url(/assets/img/loading.gif) center;
-      }
-    </style>
-  </head>
+  <!-- Liquor Tree -->
+  <link rel="stylesheet" href="/liquor-tree.css" />
+  <script src="/liquor-tree.umd.js"></script>
 
-  <body>
-    <div class="hello">Basic Usage.</div>
+  <style>
+    .demo-tree {
+      width: 50%;
+    }
 
-    <div id="app">
-      <div class="examples">
-        <div class="example">
-          <div class="example-description">
-            <button @click="changeOptions">Click this to Call setModel on Tree</button>
-            <p>
-              <strong>{{ timetaken }}</strong>
-            </p>
-          </div>
-          <div class="example-tree">
-            <liquor-tree :options="options" ref="tree" />
-          </div>
+    .tree.tree-loading {
+      width: 300px;
+      height: 300px;
+      background: #fff no-repeat url(/assets/img/loading.gif) center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hello">Basic Usage.</div>
+
+  <div id="app">
+    <div class="examples">
+      <div class="example">
+        <div class="example-description">
+          <button @click="changeOptions">Click this to Call setModel on Tree</button>
+          <p>
+            <strong>{{ timetaken }}</strong>
+          </p>
+        </div>
+        <div class="example-tree">
+          <liquor-tree :options="options" ref="tree" />
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      const numItems = 30;
+  <script>
+    const numItems = 30;
 
-      new Vue({
-        el: '#app',
-        data: () => ({
-          timetaken: '',
-          options: {
-            checkbox: true
-          }
-        }),
-
-        methods: {
-          getItems(prefix, num, index, depth) {
-            if (depth === 0) {
-              return [];
-            } else {
-              return [...Array(num)].map((o, i) => ({
-                text: `${prefix}-${i}-${depth}`,
-                children: this.getItems(prefix, numItems, i, depth - 1)
-              }));
-            }
-          },
-
-          changeOptions() {
-            const items = this.getItems(Math.random().toString(36).substring(3, 6), numItems, 0, 3);
-            const s = new Date().valueOf();
-            this.$refs.tree.setModel(items);
-            this.timetaken = `Time taken by setModel: ${new Date().valueOf() - s} ms`;
-          }
+    new Vue({
+      el: '#app',
+      data: () => ({
+        timetaken: '',
+        options: {
+          checkbox: true
         }
-      });
-    </script>
-  </body>
+      }),
+
+      methods: {
+        getItems(prefix, num, index, depth) {
+          if (depth === 0) {
+            return [];
+          } else {
+            return [...Array(num)].map((o, i) => ({
+              text: `${prefix}-${i}-${depth}`,
+              children: this.getItems(prefix, numItems, i, depth - 1)
+            }));
+          }
+        },
+
+        changeOptions() {
+          const items = this.getItems(Math.random().toString(36).substring(3, 6), numItems, 0, 3);
+          const s = new Date().valueOf();
+          this.$refs.tree.setModel(items);
+          this.timetaken = `Time taken by setModel: ${new Date().valueOf() - s} ms`;
+        }
+      }
+    });
+  </script>
+</body>
+
 </html>

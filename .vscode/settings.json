@@ -16,5 +16,15 @@
   },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "scss.validate": false, // Disable built-in lint
+  "stylelint.enable": true, // Enable stylelint
+  "stylelint.validate": [
+    "scss",
+    "vue"
+  ],
+  "vetur.validation.style": false, // Disable vetur style validation
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true
   }
 }

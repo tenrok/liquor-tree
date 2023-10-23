@@ -1,9 +1,11 @@
+import path from 'path';
 import pkg from './package.json';
 import vue from 'rollup-plugin-vue';
 import buble from '@rollup/plugin-buble';
 import terser from '@rollup/plugin-terser';
 import alias from '@rollup/plugin-alias';
 import serve from 'rollup-plugin-serve';
+import scss from 'rollup-plugin-scss';
 
 const banner = `
 /*!
@@ -28,6 +30,7 @@ const config = ({ output = [], plugins = [], minify = false, sourcemap = true } 
     format,
     sourcemap,
     banner,
+    assetFileNames: '[name][extname]',
   })),
   cache: false,
   plugins: [
@@ -51,8 +54,19 @@ const config = ({ output = [], plugins = [], minify = false, sourcemap = true } 
 const plugins = [
   alias({
     resolve: ['.vue', '.js'],
+    entries: [
+      {
+        find: /^@/,
+        replacement: path.resolve('./src'),
+      },
+    ],
   }),
-  vue({ css: true }),
+  vue({ css: false }),
+  scss({
+    fileName: 'liquor-tree.css',
+    failOnError: true,
+    sourceMap: true,
+  }),
   buble({ objectAssign: 'Object.assign' }),
 ];
 

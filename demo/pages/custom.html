@@ -8,10 +8,13 @@
   <link rel="stylesheet" href="../assets/style.css" />
   <script src="../assets/menu.js"></script>
 
-  <!-- first import Vue -->
-  <!-- <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script> -->
-  <script src="../assets/vue.js"></script>
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+
+  <!-- Liquor Tree -->
+  <link rel="stylesheet" href="/liquor-tree.css" />
   <script src="/liquor-tree.umd.js"></script>
+
   <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" media="all" rel="stylesheet"
     type="text/css" />
 
@@ -62,7 +65,7 @@
                 {{ node.text }}
               </template>
             </span>
-          </tree>
+            </tree>
         </div>
       </div>
 
@@ -77,7 +80,7 @@
                 <span @mouseup="addChild($event, node)">Add child</span>
               </div>
             </span>
-          </tree>
+            </tree>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" role="tree" :class="{ tree: true, 'tree-loading': loading, 'tree--draggable': !!draggableNode }">
+  <component :is="tag" role="tree" :class="{ tree: true, 'tree-loading': loading, 'tree-draggable': !!draggableNode }">
     <template v-if="filter && matches.length == 0">
       <div class="tree-filter-empty" v-html="opts.filter.emptyText" />
     </template>
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import TreeNode from './TreeNode.vue';
-  import DraggableNode from './DraggableNode.vue';
-  import TreeMixin from '../mixins/TreeMixin.js';
-  import DndMixin from '../mixins/DndMixin.js';
+  import TreeNode from '@/components/TreeNode.vue';
+  import DraggableNode from '@/components/DraggableNode.vue';
+  import TreeMixin from '@/mixins/TreeMixin.js';
+  import DndMixin from '@/mixins/DndMixin.js';
 
   const defaults = {
     direction: 'ltr',
@@ -129,7 +129,7 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   .tree {
     overflow: auto;
   }
@@ -146,7 +146,7 @@
     box-sizing: border-box;
   }
 
-  .tree.tree--draggable .tree-node:not(.selected) > .tree-content:hover {
+  .tree.tree-draggable .tree-node:not(.selected) > .tree-content:hover {
     background: transparent;
   }
 

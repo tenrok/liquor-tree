@@ -1,9 +1,9 @@
 import Vue from 'vue';
 
-import Node from '../../src/lib/Node.js';
-import Tree from '../../src/lib/Tree.js';
+import Node from '@/lib/Node.js';
+import Tree from '@/lib/Tree.js';
 
-import objectToNode from '../../src/utils/objectToNode.js';
+import objectToNode from '@/utils/objectToNode.js';
 
 const vm = new Vue();
 vm.opts = {};

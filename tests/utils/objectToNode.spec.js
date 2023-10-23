@@ -1,5 +1,5 @@
-import objectToNode from '../../src/utils/objectToNode.js';
-import Node from '../../src/lib/Node.js';
+import objectToNode from '@/utils/objectToNode.js';
+import Node from '@/lib/Node.js';
 
 const nodeStates = {
   selected: false,

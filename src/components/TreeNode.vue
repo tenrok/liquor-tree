@@ -10,7 +10,7 @@
       </span>
     </div>
 
-    <transition name="l-fade">
+    <transition name="tree-fade">
       <ul v-if="hasChildren() && node.states.expanded" class="tree-children">
         <node v-for="child in visibleChildren" :key="child.id" :node="child" :options="options" />
       </ul>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import NodeContent from './NodeContent.vue';
+  import NodeContent from '@/components/NodeContent.vue';
 
   export default {
     name: 'Node',
@@ -181,7 +181,7 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   .tree-node {
     white-space: nowrap;
     display: flex;
@@ -225,7 +225,7 @@
     position: relative;
   }
 
-  .tree-arrow.has-child:after {
+  .tree-arrow.has-child::after {
     border: 1.5px solid #494646;
     position: absolute;
     border-left: 0;
@@ -239,12 +239,12 @@
     transform-origin: center;
   }
 
-  .tree-arrow.has-child.rtl:after {
+  .tree-arrow.has-child.rtl::after {
     border: 1.5px solid #494646;
     position: absolute;
     border-right: 0;
     border-bottom: 0;
-    right: 0px;
+    right: 0;
     top: 50%;
     height: 9px;
     width: 9px;
@@ -253,7 +253,7 @@
     transform-origin: center;
   }
 
-  .tree-arrow.expanded.has-child:after {
+  .tree-arrow.expanded.has-child::after {
     transform: rotate(45deg) translateY(-50%) translateX(-5px);
   }
 
@@ -269,8 +269,8 @@
     transition: border-color 0.25s, background-color 0.25s;
   }
 
-  .tree-checkbox:after,
-  .tree-arrow:after {
+  .tree-checkbox::after,
+  .tree-arrow::after {
     position: absolute;
     display: block;
     content: '';
@@ -282,7 +282,7 @@
     border-color: #218eff;
   }
 
-  .tree-checkbox.checked:after {
+  .tree-checkbox.checked::after {
     box-sizing: content-box;
     border: 1.5px solid #fff; /* probably width would be rounded in most cases */
     border-left: 0;
@@ -291,16 +291,12 @@
     top: 3px;
     height: 15px;
     width: 8px;
-    transform: rotate(45deg) scaleY(0);
+    transform: rotate(45deg) scaleY(1);
     transition: transform 0.25s;
     transform-origin: center;
   }
 
-  .tree-checkbox.checked:after {
-    transform: rotate(45deg) scaleY(1);
-  }
-
-  .tree-checkbox.indeterminate:after {
+  .tree-checkbox.indeterminate::after {
     background-color: #fff;
     top: 50%;
     left: 20%;
@@ -318,9 +314,6 @@
     margin-left: 3px;
     line-height: 24px;
     padding: 3px 6px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
   }
 
@@ -346,32 +339,32 @@
     padding: 0 4px;
   }
 
-  .l-fade-enter-active,
-  .l-fade-leave-active {
+  .tree-fade-enter-active,
+  .tree-fade-leave-active {
     transition: opacity 0.3s, transform 0.3s;
     transform: translateX(0);
   }
 
-  .l-fade-enter,
-  .l-fade-leave-to {
+  .tree-fade-enter,
+  .tree-fade-leave-to {
     opacity: 0;
     transform: translateX(-2em);
   }
 
-  .tree--small .tree-anchor {
+  .tree-small .tree-anchor {
     line-height: 19px;
   }
 
-  .tree--small .tree-checkbox {
+  .tree-small .tree-checkbox {
     width: 23px;
     height: 23px;
   }
 
-  .tree--small .tree-arrow {
+  .tree-small .tree-arrow {
     height: 23px;
   }
 
-  .tree--small .tree-checkbox.checked:after {
+  .tree-small .tree-checkbox.checked::after {
     left: 7px;
     top: 3px;
     height: 11px;
@@ -379,7 +372,7 @@
   }
 
   .tree-node.has-child.loading > .tree-content > .tree-arrow,
-  .tree-node.has-child.loading > .tree-content > .tree-arrow:after {
+  .tree-node.has-child.loading > .tree-content > .tree-arrow::after {
     border-radius: 50%;
     width: 15px;
     height: 15px;
@@ -389,36 +382,32 @@
   .tree-node.has-child.loading > .tree-content > .tree-arrow {
     font-size: 3px;
     position: relative;
-    border-top: 1.1em solid rgba(45, 45, 45, 0.2);
-    border-right: 1.1em solid rgba(45, 45, 45, 0.2);
-    border-bottom: 1.1em solid rgba(45, 45, 45, 0.2);
+    border-top: 1.1em solid rgb(45 45 45 / 20%);
+    border-right: 1.1em solid rgb(45 45 45 / 20%);
+    border-bottom: 1.1em solid rgb(45 45 45 / 20%);
     border-left: 1.1em solid #2d2d2d;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
     transform: translateZ(0);
     left: 5px;
-    -webkit-animation: loading 1.1s infinite linear;
     animation: loading 1.1s infinite linear;
     margin-right: 8px;
   }
 
-  @-webkit-keyframes loading {
+  @keyframes loading {
     0% {
-      -webkit-transform: rotate(0deg);
       transform: rotate(0deg);
     }
+
     100% {
-      -webkit-transform: rotate(360deg);
       transform: rotate(360deg);
     }
   }
+
   @keyframes loading {
     0% {
-      -webkit-transform: rotate(0deg);
       transform: rotate(0deg);
     }
+
     100% {
-      -webkit-transform: rotate(360deg);
       transform: rotate(360deg);
     }
   }

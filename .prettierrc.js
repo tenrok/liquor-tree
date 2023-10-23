@@ -1,7 +1,8 @@
+// https://prettier.io/docs/en/options.html
+
 /** @type {import("prettier").Config} */
 const config = {
   printWidth: 180,
-  semi: true,
   singleQuote: true,
   vueIndentScriptAndStyle: true,
 };
